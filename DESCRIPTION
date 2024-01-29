@@ -9,3 +9,10 @@ License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+Collate: 
+    'YTExploreR-package.R'
+    'YTExploreR_get_uploads.R'
+    'access_top10_videos.R'
+    'get_channel_stats.R'
+    'video_category_util.R'
+    'video_details_util.R'
