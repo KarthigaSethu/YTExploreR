@@ -79,6 +79,7 @@ Get_Video_Detail <- function(video_id, api_key)
 
   publishedAt = as.POSIXlt(publishedAt, format = "%Y-%m-%dT%H:%M:%SZ")
   publishedmonth <- format(publishedAt, "%B")
+  publishedyear <- format(publishedAt, "%Y")
 
   data <- data.frame(
     channelId = channelId,
@@ -86,6 +87,7 @@ Get_Video_Detail <- function(video_id, api_key)
     videotitle = videotitle,
     publishedAt = publishedAt,
     publishedmonth = publishedmonth,
+    publishedyear = publishedyear,
     categoryid = categoryid,
     duration = duration,
     definition = definition,
