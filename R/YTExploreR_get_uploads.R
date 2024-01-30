@@ -1,6 +1,7 @@
 library(httr)
 library(dplyr)
 library(jsonlite)
+library(ggplot2)
 
 #' Date Formatter
 #'
@@ -70,13 +71,17 @@ get_monthly_uploads <- function(chan_id, year) {
 
     response_data <- fromJSON(content(r, "text"))
 
-    # Extract data from the response
-    publishedAt <- response_data$items$snippet$publishedAt
-    title <- response_data$items$snippet$title
-    type <- response_data$items$snippet$type
-    videoId <- response_data$items$contentDetails$upload$videoId
+    # Check if there are items in the response
+    if (length(response_data$items) > 0) {
+      # Extract data from the response
+      publishedAt <- response_data$items$snippet$publishedAt
+      title <- response_data$items$snippet$title
+      type <- response_data$items$snippet$type
+      videoId <- response_data$items$contentDetails$upload$videoId
+      channelTitle <- response_data$items$snippet$channelTitle
 
-    uploads_df <- bind_rows(uploads_df, data.frame(publishedAt, title, type, videoId))
+      uploads_df <- bind_rows(uploads_df, data.frame(publishedAt, title, type, videoId, channelTitle))
+    }
   }
 
   # Filter for only 'upload' type
@@ -87,9 +92,36 @@ get_monthly_uploads <- function(chan_id, year) {
 }
 
 
-get_monthly_uploads('UCyPYQTT20IgzVw92LDvtClw', 2022)
+# get_monthly_uploads('UCqFMzb-4AUf6WAIbl132QKA', 2022)
+
+annual_uploads <- get_monthly_uploads('UCyPYQTT20IgzVw92LDvtClw', 2022)
+annual_uploads
+
+# Preliminary Viz:
+annual_uploads$publishedAt <- as.Date(annual_uploads$publishedAt)
+
+annual_uploads$month <- format(annual_uploads$publishedAt, "%m")
+annual_uploads$year <- format(annual_uploads$publishedAt, "%Y")
+
+# Framework for all 12 months
+all_months <- expand.grid(month = sprintf("%02d", 1:12), year = unique(annual_uploads$year))
+
+# Updating piping -- include months with 0 uploads for posterity
+# Uses collected data for each month, then joins with the 12 month framework
+monthly_summary <- all_months %>%
+  left_join(annual_uploads %>% group_by(month, year) %>% summarise(upload_count = n()), by = c("month", "year")) %>%
+  mutate(upload_count = replace_na(upload_count, 0))
 
 
+ggplot(monthly_summary, aes(x = month, y = upload_count, group = year)) +
+  geom_line() +
+  labs(title = paste("Monthly Upload Activity for", unique(annual_uploads$channelTitle), "in", unique(annual_uploads$year)),
+       x = "",
+       y = "Channel Upload Activity") +
+  scale_x_discrete(
+    limits = sprintf("%02d", 1:12),
+    labels = month.name) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 
