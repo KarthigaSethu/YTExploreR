@@ -98,7 +98,7 @@ calculate_and_display_summary<-function(merged_info)
 }
 
 #' Helps to display category in pi chart
-#'
+#'@description
 #'This method helps to create pi chart
 #'with each slice representing the count of each category
 #'
@@ -106,21 +106,21 @@ calculate_and_display_summary<-function(merged_info)
 #' @import ggplot2
 #' @export
 #' @examples
-#' df <- data.frame(categoryid = c("22", "27"),
+#' merged_data <- data.frame(categoryid = c("22", "27"),
 #'       channelId = c("UCAuUUnT6oDeKwE6v1NGQxug", "UCtYLUTtgS3k1Fg4y5tAhLbw"),
 #'       categoryTitle = c("Entertainment","Education"),
 #'       count = c(1, 19),
 #'       duration_sum = c(21.05, 399.95),
 #'       percentage_duration = c(5, 95))
-#' visualize(df)
+#' visualize(merged_data)
 visualize<-function(merged_info)
 {
-  category_plot <- ggplot(merged_info, aes(x = "", y = count, fill = categoryTitle)) +
+  category_plot <- ggplot(merged_info, aes(x = " ", y = count, fill = categoryTitle)) +
     geom_bar(stat = "identity") +
     coord_polar("y", start = 0) +
-    labs(title = "Breakdown on your watch category", fill = "CategoryTitle") +
+    labs(title = "Breakdown on your watch category", fill = "categoryTitle") +
     theme_minimal()
- print(category_plot)
+  print(category_plot)
 }
 
 #' Main function that helps to co-ordinate all the functions
@@ -134,7 +134,7 @@ visualize<-function(merged_info)
 #' @export
 #' @import dplyr
 #' @import ggplot2
-#' @examples get_Preference_Breakdowm("ZTt9gsGcdDo,Qf06XDYXCXI")
+#' @examples get_Preference_Breakdowm("Ks-_Mh1QhMc,Qf06XDYXCXI")
 get_Preference_Breakdowm<-function(video_ids)
 {
   video_ids <- gsub(" ", "", video_ids)
