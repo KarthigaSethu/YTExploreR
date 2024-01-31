@@ -1,10 +1,21 @@
 #' Channel statistics
 #'
-#' @param api_key Is the alphanumeric key to get access to the YouTube API.
-#' @param channel_ids A list of the channel identifiers that will be used for retrieve statistics.
+#' This function retrieves statistics for one or more YouTube channels using the YouTube API.
 #'
-#' @return A data frame with the statistics of the channels (channel name, number of subscribers, number of views,
-#' total videos, playlist ID, channel start date, thumbnail present and country)
+#' @param api_key An alphanumeric key to access the YouTube API.
+#' @param channel_ids A character vector of channel identifiers used for retrieve statistics.
+#'
+#' @return A data frame with the statistics, including:
+#' - channelName: The channel's title.
+#' - numberSubscribers: The number of subscribers that the channel has.
+#' - numberViews: The number of times the channel has been viewed.
+#' - totalVideos: The number of public videos uploaded to the channel.
+#' - playlistId: The ID of the playlist that contains the channel's liked videos.
+#' - channelStartDate: The date and time that the channel was created.
+#' - country: The country with which the channel is associated.
+#' - thumbnails_present: Indicates whether thumbnails are present (Yes/No)
+#' - engagement_ratio: The ratio of subscribers to views (in percentage)
+#'
 #' @export
 #'
 #' @examples
@@ -18,6 +29,11 @@
 #' # Print the resulting data frame
 #' print(channel_stats)
 get_channel_stats <- function(api_key, channel_ids) {
+  # Load the required libraries
+  library(httr)
+  library(jsonlite)
+  library(anytime)
+
   all_data <- data.frame()
 
   for (channel_id in channel_ids) {
@@ -29,7 +45,7 @@ get_channel_stats <- function(api_key, channel_ids) {
     response <- GET(url)
     channel_stats <- fromJSON(content(response, "text"))
 
-    # Extract start date from channel_stats
+    # Extract the start date from channel_stats
     channelStartDate <- channel_stats$items$snippet$publishedAt
 
     data <- data.frame(
@@ -52,5 +68,10 @@ get_channel_stats <- function(api_key, channel_ids) {
 
     all_data <- rbind(all_data, data)
   }
+
+  # Adds a column with the engagement ratio
+  all_data$engagement_ratio <- (all_data$numberSubscribers / all_data$numberViews)*100
+
   return(all_data)
 }
+
