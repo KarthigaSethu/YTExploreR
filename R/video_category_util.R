@@ -10,12 +10,13 @@ library(jsonlite)
 #' 2. categoryTitle
 #' 3. channelId
 #'
-#' @param categoryid : It could be either single id or a comma seperated multiple ids
-#' @param api_key : API key to authenticate the access
+#' @param categoryid  It could be either single id or a comma seperated multiple ids
+#' @param api_key  API key to authenticate the access
 #' @return data frame with category details
 #' @export
-#' @examples url : https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&id=22&key=[api key]
-#'           url : https://youtube.googleapis.com/youtube/v3/videoCategories?part=snippet&id=20,22&key=[api key]
+#' @examples
+#'Get_Video_Category("22,20", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
+#'Get_Video_Category("22", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
 Get_Video_Category <- function(categoryid, api_key)
 {
   url <- paste0("https://youtube.googleapis.com/youtube/v3/videoCategories",
@@ -26,8 +27,8 @@ Get_Video_Category <- function(categoryid, api_key)
     "Authorization" = "Bearer AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",
     "Accept" = "application/json"
   )
-  response <- GET(url, headers = headers)
-  category_detail <- fromJSON(content(response, "text"))
+  response <- httr::GET(url, headers = headers)
+  category_detail <- jsonlite::fromJSON(httr::content(response, "text"))
   categoryId = category_detail$items$id
   categoryTitle = category_detail$items$snippet$title
   channelId =     category_detail$items$snippet$channelId

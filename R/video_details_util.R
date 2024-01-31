@@ -8,21 +8,23 @@ library(stringr)
 #' For instance:
 #' PT1H30M30S is converted to 90.5 minutes using regex
 #'
-#' @param input : time in ISO 8601 format
+#' @param input  time in ISO 8601 format
 #' @return time in minutes
 #' @export
-#' @examples PT1H30M30S is Period of Time 1 Hour, 30 Minutes and 30 Seconds
+#' @examples
+#' Extract_Time_in_mins("PT1H30M30S")
+#' Extract_Time_in_mins("PT30M30S")
+#' Extract_Time_in_mins("PT1H30S")
 Extract_Time_in_mins<-function(input)
 {
   pattern<-"((\\d+)H)?((\\d+)M)?((\\d+)S)?"
-  matches <- str_match_all(input, pattern)
+  matches <- stringr::str_match_all(input, pattern)
   h <- matches[[1]][3, 3]
   m <- matches[[1]][3, 5]
   s <- matches[[1]][3, 7]
   if(is.na(h)){h<-0}
   if(is.na(m)){m<-0}
   if(is.na(s)){s<-0}
-  print(paste0(h,":",m,":",s))
   return ((as.numeric(h)*60)+as.numeric(m)+(as.numeric(s)/60))
 }
 
@@ -43,13 +45,15 @@ Extract_Time_in_mins<-function(input)
 #' 11.favourites
 #' 12.comments
 #'
-#' @param video_id : id of a video or comma seperated ids of a video
-#' @param api_key: api key to authenticate API
+#' @param video_id id of a video or comma seperated ids of a video
+#' @param api_key api key to authenticate API
 #'
 #' @return data frame with details about the video
 #' @export
 #'
-#' @examples url: https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=[videoid(s)]&key=[key]
+#' @examples
+#' Get_Video_Detail("Ks-_Mh1QhMc", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
+#' Get_Video_Detail("Ks-_Mh1QhMc,Ks-_Mh1QhMc", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
 Get_Video_Detail <- function(video_id, api_key)
 {
   url <- paste0("https://youtube.googleapis.com/youtube/v3/videos",
@@ -60,8 +64,8 @@ Get_Video_Detail <- function(video_id, api_key)
     "Authorization" = "Bearer AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",
     "Accept" = "application/json"
   )
-  response <- GET(url, headers = headers)
-  video_detail <- fromJSON(content(response, "text"))
+  response <- httr::GET(url, headers = headers)
+  video_detail <- jsonlite::fromJSON(httr::content(response, "text"))
 
   channelId = video_detail$items$snippet$channelId
   channelName = video_detail$items$snippet$channelTitle
@@ -79,6 +83,7 @@ Get_Video_Detail <- function(video_id, api_key)
 
   publishedAt = as.POSIXlt(publishedAt, format = "%Y-%m-%dT%H:%M:%SZ")
   publishedmonth <- format(publishedAt, "%B")
+  publishedyear <- format(publishedAt, "%Y")
 
   data <- data.frame(
     channelId = channelId,
@@ -86,6 +91,7 @@ Get_Video_Detail <- function(video_id, api_key)
     videotitle = videotitle,
     publishedAt = publishedAt,
     publishedmonth = publishedmonth,
+    publishedyear = publishedyear,
     categoryid = categoryid,
     duration = duration,
     definition = definition,
