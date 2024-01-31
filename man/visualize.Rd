@@ -11,11 +11,11 @@ This method helps to create pi chart
 with each slice representing the count of each category
 }
 \examples{
-df <- data.frame(categoryid = c("22", "27"),
+merged_data <- data.frame(categoryid = c("22", "27"),
       channelId = c("UCAuUUnT6oDeKwE6v1NGQxug", "UCtYLUTtgS3k1Fg4y5tAhLbw"),
       categoryTitle = c("Entertainment","Education"),
       count = c(1, 19),
       duration_sum = c(21.05, 399.95),
       percentage_duration = c(5, 95))
-visualize(df)
+visualize(merged_data)
 }

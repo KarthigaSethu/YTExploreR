@@ -8,6 +8,7 @@ library(stringr)
 #' For instance:
 #' PT1H30M30S is converted to 90.5 minutes using regex
 #'
+#' @import stringr
 #' @param input  time in ISO 8601 format
 #' @return time in minutes
 #' @export
@@ -44,13 +45,16 @@ Extract_Time_in_mins<-function(input)
 #' 10.likes
 #' 11.favourites
 #' 12.comments
+#' 13.publishedyear
+#' and converts data into appropriate type
 #'
 #' @param video_id id of a video or comma seperated ids of a video
 #' @param api_key api key to authenticate API
 #'
 #' @return data frame with details about the video
 #' @export
-#'
+#' @import httr
+#' @import jsonlite
 #' @examples
 #' Get_Video_Detail("Ks-_Mh1QhMc", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
 #' Get_Video_Detail("Ks-_Mh1QhMc,Ks-_Mh1QhMc", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
@@ -95,10 +99,10 @@ Get_Video_Detail <- function(video_id, api_key)
     categoryid = categoryid,
     duration = duration,
     definition = definition,
-    views = views,
-    likes = likes,
-    favourites = favourites,
-    comments = comments
+    views = as.numeric(views),
+    likes = as.numeric(likes),
+    favourites = as.numeric(favourites),
+    comments = as.numeric(comments)
   )
   return(data)
 }

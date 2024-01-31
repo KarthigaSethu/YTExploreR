@@ -19,6 +19,8 @@ This method gives details such as:
 10.likes
 11.favourites
 12.comments
+13.publishedyear
+and converts data into appropriate type
 }}
 \usage{
 Get_Video_Detail(video_id, api_key)
@@ -49,6 +51,8 @@ This method gives details such as:
 10.likes
 11.favourites
 12.comments
+13.publishedyear
+and converts data into appropriate type
 }
 }
 \examples{
