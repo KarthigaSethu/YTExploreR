@@ -3,3 +3,8 @@
 export(Extract_Time_in_mins)
 export(Get_Video_Category)
 export(Get_Video_Detail)
+export(get_Preference_Breakdowm)
+export(preprare_data)
+export(visualize)
+import(dplyr)
+import(ggplot2)
