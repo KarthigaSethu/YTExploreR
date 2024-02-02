@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' # Set your API key
-#' api_key <- "REPLACE_WITH_A_VALID_KEY"
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
 #' # Define channel IDs
 #' channel_ids <- c("UCtYLUTtgS3k1Fg4y5tAhLbw",  # Statquest
 #'                 "UCLLw7jmFsvfIVaUFsLs8mlQ")  # Luke Barousse

@@ -10,13 +10,6 @@
 #' @export
 #'
 #' @examples
-#' # Call the function to get video IDs
-#' api_key <- 'AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw'
-#' playlist_id <- 'UUtYLUTtgS3k1Fg4y5tAhLbw'
-#' video_ids <- get_video_ids(api_key, playlist_id)
-#' # Print the resulting vector of video IDs
-#' print(video_ids)
-#' length(video_ids)
 get_video_ids <- function(api_key, playlist_id) {
   all_video_ids <- character(0)
 
