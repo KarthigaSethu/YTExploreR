@@ -6,7 +6,8 @@
 Ranks and order the video details by calling get_video_and_rank
 Then filters top 10 videos
 Then helps to calculate proportion by calling calculate_proportion
-Then prints and visualizes data}
+Then prints and visualizes data
+This method throws error if the channel id is empty}
 \usage{
 get_top10_videos(channelId)
 }
@@ -19,6 +20,7 @@ Ranks and order the video details by calling get_video_and_rank
 Then filters top 10 videos
 Then helps to calculate proportion by calling calculate_proportion
 Then prints and visualizes data
+This method throws error if the channel id is empty
 }
 \examples{
 get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw")
