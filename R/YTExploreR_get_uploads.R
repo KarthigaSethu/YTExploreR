@@ -3,7 +3,6 @@ library(httr)
 library(dplyr)
 library(jsonlite)
 library(ggplot2)
-library(usethis)
 
 
 #' Date Formatter
@@ -13,9 +12,7 @@ library(usethis)
 #'
 #' @return Two formatted strings, one month apart:
 #'        Suitable to be plugged into the YouTube Activities API publishedBefore and publishedAfter parameters
-#'
-#' @examples format_date(5,2013) --> "2013-5-01T00:00:00Z", "2013-6-01T00:00:00Z"
-#'
+
 
 format_date <- function(month, year) {
   start_date <- paste0(year, "-", month, "-01T00:00:00Z")
@@ -40,8 +37,6 @@ format_date <- function(month, year) {
 #' @import jsonlite
 #' @import dplyr
 #'
-#' @examples get_uploads('UCyPYQTT20IgzVw92LDvtClw') --> result_df_uploads
-
 
 get_monthly_uploads <- function(chan_id, year) {
 
@@ -67,7 +62,7 @@ get_monthly_uploads <- function(chan_id, year) {
     r <- GET(url, query = params)
 
     if (status_code(r) != 200) {
-      warning('Request for month ', month, ' was not successful!')
+      #warning('Request for month ', month, ' was not successful!')
       next
     }
 
@@ -92,7 +87,6 @@ get_monthly_uploads <- function(chan_id, year) {
     result_df_uploads <- uploads_df %>%
       filter(type == 'upload')
 
-    print(result_df_uploads)
     return(result_df_uploads)
   }
 
@@ -106,12 +100,8 @@ get_monthly_uploads <- function(chan_id, year) {
 #'
 #' @return A ggplot2 line plot displaying the monthly upload activity OR a single string explaining that the year is out of scope
 #'
-#' @import ggplot
+#' @import ggplot2
 #' @import dplyr
-#'
-#' @examples
-#' annual_uploads <- get_monthly_uploads('UCqFMzb-4AUf6WAIbl132QKA', 1998)
-#' visualize_monthly_uploads(annual_uploads)
 
 visualize_monthly_uploads <- function(uploads_df) {
 
