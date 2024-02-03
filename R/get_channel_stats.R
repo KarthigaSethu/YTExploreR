@@ -15,7 +15,7 @@
 #' - country: The country with which the channel is associated.
 #' - thumbnails_present: Indicates whether thumbnails are present (Yes/No)
 #' - engagement_ratio: The ratio of subscribers to views (in percentage)
-#'
+#' - channelID: ID of that channel
 #' @export
 #'
 #' @examples
@@ -49,6 +49,7 @@ get_channel_stats <- function(api_key, channel_ids) {
     channelStartDate <- channel_stats$items$snippet$publishedAt
 
     data <- data.frame(
+      channelID = channel_stats$items$id,
       channelName = channel_stats$items$snippet$title,
       channelStartDate = channel_stats$items$snippet$publishedAt,
       numberSubscribers = as.integer(channel_stats$items$statistics$subscriberCount),
