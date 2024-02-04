@@ -6,6 +6,10 @@
 #'
 #' @include YTExploreR_get_uploads.R
 #'
+#' @import ggrepel
+#' @import ggtext
+#' @import gridExtra
+#' @import viridis
 #'
 
 visualize_hourly_patterns <- function(uploads_df) {

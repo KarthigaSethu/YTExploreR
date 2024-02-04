@@ -137,3 +137,4 @@ visualize_monthly_uploads <- function(uploads_df) {
 
 annual_uploads <- get_monthly_uploads('UCQKnyICqWksz8ygILHS01gQ', 2019)
 visualize_monthly_uploads(annual_uploads)
+
