@@ -17,6 +17,13 @@ library(gridExtra)
 #' @export
 #'
 #' @examples
+#' # Providing a valid API Key and channel ids
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw', # Statquest
+#'                 'UCCezIgC97PvUuR4_gbFUs5g', # Corey Schafer
+#'                 'UCJQJAI7IjbLcpsjWdSzYz0Q') # Thu Vu
+#'# Call function to retrieve channel statistics data frame
+#' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' bar_subscribers <- create_bar_subscribers_plot(channel_stats)
 create_bar_subscribers_plot <- function(channel_stats) {
   bar_subscribers <- ggplot(channel_stats, aes(x=reorder(channelName, -numberSubscribers), y=numberSubscribers, fill=channelName)) +
@@ -25,9 +32,11 @@ create_bar_subscribers_plot <- function(channel_stats) {
     theme(legend.position = "none") +
     ggtitle("Number of subscribers") +
     theme(plot.title = element_text(hjust = 0.5)) +
-    labs(y = "Count (in thousands)",
+    labs(y = "Count",
          x = "") +
-    scale_y_continuous(labels = function(x) format(x/1000, big.mark = ",", scientific = FALSE))
+    #scale_y_continuous(labels = function(x) format(x/1000, big.mark = ",", scientific = FALSE)) +
+    scale_x_continuous(labels = scales::label_number(scale = 1e-3, suffix = "M")) +
+
 
   return(bar_subscribers)
 }
@@ -43,6 +52,13 @@ create_bar_subscribers_plot <- function(channel_stats) {
 #' @export
 #'
 #' @examples
+#' # Providing a valid API Key and channel ids
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw', # Statquest
+#'                 'UCCezIgC97PvUuR4_gbFUs5g', # Corey Schafer
+#'                 'UCJQJAI7IjbLcpsjWdSzYz0Q') # Thu Vu
+#'# Call function to retrieve channel statistics data frame
+#' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' bar_views <- create_bar_views_plot(channel_stats)
 create_bar_views_plot <- function(channel_stats) {
   bar_views <- ggplot(channel_stats, aes(x=reorder(channelName, -numberViews), y=numberViews, fill=channelName)) +
@@ -69,6 +85,13 @@ create_bar_views_plot <- function(channel_stats) {
 #' @export
 #'
 #' @examples
+#' # Providing a valid API Key and channel ids
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw', # Statquest
+#'                 'UCCezIgC97PvUuR4_gbFUs5g', # Corey Schafer
+#'                 'UCJQJAI7IjbLcpsjWdSzYz0Q') # Thu Vu
+#'# Call function to retrieve channel statistics data frame
+#' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' bar_videos <- create_bar_videos_plot(channel_stats)
 create_bar_videos_plot <- function(channel_stats) {
   bar_videos <- ggplot(channel_stats, aes(x=reorder(channelName, -totalVideos), y=totalVideos, fill=channelName)) +
@@ -96,6 +119,13 @@ create_bar_videos_plot <- function(channel_stats) {
 #' @export
 #'
 #' @examples
+#' # Providing a valid API Key and channel ids
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw', # Statquest
+#'                 'UCCezIgC97PvUuR4_gbFUs5g', # Corey Schafer
+#'                 'UCJQJAI7IjbLcpsjWdSzYz0Q') # Thu Vu
+#'# Call function to retrieve channel statistics data frame
+#' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' proportion_plot <- create_engagement_plot(channel_stats)
 create_engagement_plot <- function(channel_stats) {
   engagement_plot <- ggplot(channel_stats, aes(y = reorder(channelName, -engagement_ratio), x = engagement_ratio , fill=channelName)) +
@@ -120,6 +150,13 @@ create_engagement_plot <- function(channel_stats) {
 #' @export
 #'
 #' @examples
+#' # Providing a valid API Key and channel ids
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw', # Statquest
+#'                 'UCCezIgC97PvUuR4_gbFUs5g', # Corey Schafer
+#'                 'UCJQJAI7IjbLcpsjWdSzYz0Q') # Thu Vu
+#'# Call function to retrieve channel statistics data frame
+#' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' relationship_plot <- create_relationship_plot(channel_stats)
 create_relationship_plot <- function(channel_stats) {
   relationship_plot <- ggplot(channel_stats, aes(y = numberSubscribers, x = numberViews, size = totalVideos, color = channelName)) +
@@ -145,6 +182,13 @@ create_relationship_plot <- function(channel_stats) {
 #' @export
 #'
 #' @examples
+#' # Providing a valid API Key and channel ids
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw', # Statquest
+#'                 'UCCezIgC97PvUuR4_gbFUs5g', # Corey Schafer
+#'                 'UCJQJAI7IjbLcpsjWdSzYz0Q') # Thu Vu
+#'# Call function to retrieve channel statistics data frame
+#' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' growth_plot <- create_growth_plot(channel_stats)
 create_growth_plot <- function(channel_stats) {
   growth_plot <- ggplot(channel_stats, aes(x = channelStartDate, y = numberSubscribers, size = numberViews, color = totalVideos, label = channelName)) +
