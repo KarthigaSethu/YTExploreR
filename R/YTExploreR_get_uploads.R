@@ -39,7 +39,8 @@ format_date <- function(month, year) {
 
 get_monthly_uploads <- function(chan_id, year) {
 
-  api_key <- Sys.getenv("YOUTUBE_API")
+  # api_key <- Sys.getenv("YOUTUBE_API")
+  api_key <- "AIzaSyB7eL6rh3LTKBm6rYyCDdWUFraAArhmntQ"
 
   uploads_df <- data.frame()
 
