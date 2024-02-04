@@ -3,6 +3,7 @@ library(httr)
 library(dplyr)
 library(jsonlite)
 library(ggplot2)
+library(usethis)
 
 
 #' Date Formatter
@@ -12,15 +13,13 @@ library(ggplot2)
 #'
 #' @return Two formatted strings, one month apart:
 #'        Suitable to be plugged into the YouTube Activities API publishedBefore and publishedAfter parameters
-
+#'
 
 format_date <- function(month, year) {
   start_date <- paste0(year, "-", month, "-01T00:00:00Z")
   end_date <- ifelse(month == 12, paste0(year + 1, "-01-01T00:00:00Z"), paste0(year, "-", month + 1, "-01T00:00:00Z"))
   return(list(start_date = start_date, end_date = end_date))
 }
-
-
 
 #' Monthly Upload Activity
 #'
@@ -62,7 +61,6 @@ get_monthly_uploads <- function(chan_id, year) {
     r <- GET(url, query = params)
 
     if (status_code(r) != 200) {
-      #warning('Request for month ', month, ' was not successful!')
       next
     }
 
@@ -92,6 +90,9 @@ get_monthly_uploads <- function(chan_id, year) {
 
 }
 
+#get_monthly_uploads("UCW7AGm8JSBEEew61dJIgl_A", 2022)
+
+
 #' Visualize Monthly Uploads
 #'
 #' Takes a dataframe of monthly upload activities and creates a line plot with ggplot2.
@@ -100,8 +101,10 @@ get_monthly_uploads <- function(chan_id, year) {
 #'
 #' @return A ggplot2 line plot displaying the monthly upload activity OR a single string explaining that the year is out of scope
 #'
-#' @import ggplot2
+#' @import ggplot
 #' @import dplyr
+#'
+
 
 visualize_monthly_uploads <- function(uploads_df) {
 
@@ -132,5 +135,6 @@ visualize_monthly_uploads <- function(uploads_df) {
     ylim(0, max(monthly_summary$upload_count))
 }
 
-annual_uploads <- get_monthly_uploads('UCQKnyICqWksz8ygILHS01gQ', 2020)
+annual_uploads <- get_monthly_uploads('UCQKnyICqWksz8ygILHS01gQ', 2019)
 visualize_monthly_uploads(annual_uploads)
+

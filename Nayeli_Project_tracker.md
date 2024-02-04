@@ -29,11 +29,3 @@ I created the following R files:
   5. Finally, I record a video to explain how to call the wrapping/auxiliary functions within a R file to display the functionalities (a summary table and plots for the comparison of channels).
 
 https://www.loom.com/share/7de14035e61d4f08aafb44057669cafb?sid=b62bbcdf-7036-4c36-9e65-7bb7395edc7f
-
-**Date: February 1st, 2024**
-
-1. I did run the check process from Build -> Check in RStudio.
-2. Troubleshooting with my team members in the class hour.
-3. I modify the documentation for every function to provide all the information requiered to run the examples within each one as this was generating errors in the checking process.
-4. I modify the Documentation file to add the libraries and dependencies from my wrapping functions and functionalities. 
-5. Modify the code fro the display_individual_channel_stats.R to encapsule it in a function.

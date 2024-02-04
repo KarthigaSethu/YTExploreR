@@ -18,7 +18,6 @@ gets video details from Get_Video_Detail method in video_details_util.R
 then calculates ranks with a formula \code{(0.3*views) + (0.2 * likes) + (0.2 * comments)}
 This formula is used because instead of giving equal weight age for views, likes and comments,
 we want to emphasize on it's importance
-This method throws error there are less than 20 videos
 }
 \examples{
 get_video_and_rank("UCtYLUTtgS3k1Fg4y5tAhLbw")
