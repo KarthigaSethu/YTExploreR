@@ -34,7 +34,7 @@ Get_Video_Category <- function(categoryid, api_key)
     )
     response <- httr::GET(url, headers = headers)
     if (httr::http_error(response)) {
-      stop("An error occurred: ", httr::http_status(response)$message)
+      stop(httr::http_status(response)$message)
     }
     category_detail <- jsonlite::fromJSON(httr::content(response, "text"))
     categoryId = category_detail$items$id
