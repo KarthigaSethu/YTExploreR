@@ -6,6 +6,7 @@
 #' @param channel_ids A character vector of channel identifiers used for retrieve statistics.
 #'
 #' @return A data frame with the statistics, including:
+#' - channelID: Unique identifier from the channel.
 #' - channelName: The channel's title.
 #' - numberSubscribers: The number of subscribers that the channel has.
 #' - numberViews: The number of times the channel has been viewed.

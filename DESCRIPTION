@@ -24,3 +24,6 @@ Collate:
     'video_details_util.R'
     'preference_analysis.R'
     'rank_and_analyse_top_videos.R'
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
