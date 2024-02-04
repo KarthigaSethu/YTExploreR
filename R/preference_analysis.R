@@ -18,7 +18,6 @@ library(ggplot2)
 #' @examples preprare_data("ZTt9gsGcdDo,Qf06XDYXCXI")
 #' @include video_details_util.R
 #' @include video_category_util.R
-#' @include get_channel_stats.R
 preprare_data<-function(video_ids)
 {
   videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
@@ -34,10 +33,6 @@ preprare_data<-function(video_ids)
   category_ids <- paste(category_ids, collapse = ",")
   category_details <- Get_Video_Category(category_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
   merged_info <- merge(category_info, category_details, by.x = "categoryid", by.y = "categoryId")
-  merged_info$channelID <- merged_info$channelId.x
-  channel_ids<- paste(merged_info$channelId.x, collapse = ",")
-  channel_info <- get_channel_stats("AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",channel_ids)
-  merged_info <- merge(merged_info, channel_info, by.x = "channelID", by.y = "channelID")
   merged_info
 }
 
@@ -99,7 +94,7 @@ calculate_and_display_summary<-function(merged_info)
   print(" ",quote=FALSE)
   print("OVERALL CATEGORY: ")
   print(setNames(merged_info[, c("categoryTitle", "count", "duration_sum", "percentage_duration")],
-                 c("Category", "Count", "Duration in mins", "Percecntage")))
+                               c("Category", "Count", "Duration in mins", "Percecntage")))
 }
 
 #' Helps to display category in pi chart

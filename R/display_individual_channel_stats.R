@@ -1,6 +1,3 @@
-# Load your custom functions
-source("/Users/nayemontiel18/YTExploreR/R/get_channel_stats.R")
-
 #' Table with channel information
 #'
 #' Display the general information about a channel id.
@@ -29,7 +26,8 @@ display_channel_info <- function(channel_stats){
   channel_stats$numberSubscribers <- channel_stats$numberSubscribers / 1000
   channel_stats$numberViews <- channel_stats$numberViews / 1000
 
-  colnames(channel_stats) <- c('Name',
+  colnames(channel_stats) <- c('Channel ID',
+                               'Name',
                                'Start day',
                                'Number of subscribers (in thousands)',
                                'Number of views (in thousands)',
@@ -40,7 +38,7 @@ display_channel_info <- function(channel_stats){
                                'Engagement ratio')
 
   # Create a Markdown-formatted table with a title
-  table_channel_stats <-  kbl(t(channel_stats[,-6]), caption = "Channel information:") %>%
+  table_channel_stats <-  kbl(t(channel_stats[,-7]), caption = "Channel information:") %>%
                           kable_classic(full_width = F, html_font = "Cambria")
 
   return(table_channel_stats)

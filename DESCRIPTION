@@ -14,20 +14,12 @@ Imports:
     dplyr,
     httr,
     jsonlite,
-    stringr,
-    ggrepel,
-    ggtext,
-    gridExtra,
-    viridis,
-    viridisLite
+    stringr
 Collate: 
     'YTExploreR-package.R'
     'YTExploreR_get_uploads.R'
-    'channel_comparator_plots.R'
-    'channel_comparator_summarizer.R'
-    'display_individual_channel_stats.R'
+    'access_top10_videos.R'
     'get_channel_stats.R'
-    'get_video_ids.R'
     'video_category_util.R'
     'video_details_util.R'
     'preference_analysis.R'

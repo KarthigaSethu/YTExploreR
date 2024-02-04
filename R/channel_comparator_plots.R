@@ -1,5 +1,6 @@
 # Load required libraries
 library(ggplot2)
+library(ggplot2)
 library(viridis)
 library(viridisLite)
 library(ggtext)
@@ -14,12 +15,6 @@ library(gridExtra)
 #'
 #' @return A bar plot.
 #' @export
-#' @import ggplot2
-#' @import viridis
-#' @import viridisLite
-#' @import ggtext
-#' @import ggrepel
-#' @import gridExtra
 #'
 #' @examples
 #' # Providing a valid API Key and channel ids
@@ -37,9 +32,11 @@ create_bar_subscribers_plot <- function(channel_stats) {
     theme(legend.position = "none") +
     ggtitle("Number of subscribers") +
     theme(plot.title = element_text(hjust = 0.5)) +
-    labs(y = "Count (in thousands)",
+    labs(y = "Count",
          x = "") +
-    scale_y_continuous(labels = function(x) format(x/1000, big.mark = ",", scientific = FALSE))
+    #scale_y_continuous(labels = function(x) format(x/1000, big.mark = ",", scientific = FALSE)) +
+    scale_x_continuous(labels = scales::label_number(scale = 1e-3, suffix = "M")) +
+
 
   return(bar_subscribers)
 }

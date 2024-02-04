@@ -9,7 +9,6 @@ library(jsonlite)
 #' 1. categoryId
 #' 2. categoryTitle
 #' 3. channelId
-#' Added proper exceptions that gives clear message on why the method fails
 #'
 #' @param categoryid  It could be either single id or a comma seperated multiple ids
 #' @param api_key  API key to authenticate the access
@@ -51,3 +50,7 @@ Get_Video_Category <- function(categoryid, api_key)
     return(NULL)
   })
 }
+
+
+
+

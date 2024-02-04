@@ -6,6 +6,7 @@
 #' @param channel_ids A character vector of channel identifiers used for retrieve statistics.
 #'
 #' @return A data frame with the statistics, including:
+#' - channelID: Unique identifier from the channel.
 #' - channelName: The channel's title.
 #' - numberSubscribers: The number of subscribers that the channel has.
 #' - numberViews: The number of times the channel has been viewed.
@@ -15,12 +16,12 @@
 #' - country: The country with which the channel is associated.
 #' - thumbnails_present: Indicates whether thumbnails are present (Yes/No)
 #' - engagement_ratio: The ratio of subscribers to views (in percentage)
-#' - channelID: ID of that channel
+#'
 #' @export
 #'
 #' @examples
 #' # Set your API key
-#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+#' api_key <- "REPLACE_WITH_A_VALID_KEY"
 #' # Define channel IDs
 #' channel_ids <- c("UCtYLUTtgS3k1Fg4y5tAhLbw",  # Statquest
 #'                 "UCLLw7jmFsvfIVaUFsLs8mlQ")  # Luke Barousse

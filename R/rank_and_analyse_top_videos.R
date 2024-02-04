@@ -17,7 +17,7 @@ get_video_ids <-function()
 #' then calculates ranks with a formula `(0.3*views) + (0.2 * likes) + (0.2 * comments)`
 #' This formula is used because instead of giving equal weight age for views, likes and comments,
 #' we want to emphasize on it's importance
-#' This method throws error there are less than 20 videos
+#'
 #' @param channelID
 #'
 #' @return videos a dataframe
@@ -27,23 +27,12 @@ get_video_ids <-function()
 #' @examples get_video_and_rank("UCtYLUTtgS3k1Fg4y5tAhLbw")
 get_video_and_rank<-function(channelID)
 {
-  tryCatch({
-    # Get from Activity but as of now get from dummy method
-    video_ids = get_video_ids()
-    num_commas <- str_count(video_ids,",")
-    print(num_commas)
-    if(num_commas<19){
-      stop("The channel contains only less than 20 videos")
-    }
-    videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
-    videos$points <- ((0.3 * videos$views) + (0.2 * videos$likes) + (0.2 * videos$comments))
-    videos <- videos[order(videos$points), ]
-    videos
-  },error = function(e){
-    message("An error occurred: ", e$message)
-    return(NULL)
-  }
-  )
+  # Get from Activity but as of now get from dummy method
+  video_ids = get_video_ids()
+  videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
+  videos$points <- ((0.3 * videos$views) + (0.2 * videos$likes) + (0.2 * videos$comments))
+  videos <- videos[order(videos$points), ]
+  videos
 }
 
 #' Helps to print top 10 videos
@@ -68,7 +57,7 @@ get_video_and_rank<-function(channelID)
 print_videos<-function(filtered_video_details, reverse = TRUE)
 {
   top_videos <- setNames(filtered_video_details[, c("videotitle", "duration", "views", "likes","comments", "points")],
-                         c("Title", "Duration", "Total Views", "Total Likes","Total Comments","YTExplorers Score"))
+                         c("Title", "Duration", "Total Views", "Total Likes","Total Comments","YTExplorers Rank"))
   if(reverse){
     top_videos<-top_videos[nrow(top_videos):1, ]
   }
@@ -133,11 +122,11 @@ calculate_proportion<-function(filtered_video_details, full_video_detail)
 #' visualize_proportion(dummy_data)
 visualize_proportion<-function(proportion_data)
 {
-  print(proportion_data)
   ggplot(proportion_data, aes(x = Category, y = Proportion,fill = Category)) +
     geom_bar(stat = 'identity',  width = 0.5) +
     labs(x = "", y = "Proportion (%)", title = "Proportions of Top 10 Videos") +
     theme_minimal()
+
 }
 
 #' Helps to co-ordinate all the function
@@ -145,7 +134,6 @@ visualize_proportion<-function(proportion_data)
 #'  Then filters top 10 videos
 #'  Then helps to calculate proportion by calling calculate_proportion
 #'  Then prints and visualizes data
-#'  This method throws error if the channel id is empty
 #' @param channelId
 #'
 #' @export
@@ -153,18 +141,13 @@ visualize_proportion<-function(proportion_data)
 #' @examples get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw")
 get_top10_videos<-function(channelId)
 {
-  tryCatch({
-    if(missing(channelId)){
-      stop("channelId parameter is required but its missing")
-    }
-    videos <- get_video_and_rank(channelId)
-    filtered_videos <- top_videos<- tail(videos,10)
-    proportion_data<-calculate_proportion(filtered_videos, videos)
-    print_videos(filtered_videos)
-    visualize_proportion(proportion_data)
-  },error =function(e){
-    message("An error occurred: ", e$message)
-    return(NULL)
-  }
-  )
+  videos <- get_video_and_rank(channelId)
+  filtered_videos <- top_videos<- tail(videos,10)
+  proportion_data<-calculate_proportion(filtered_videos, videos)
+  print_videos(filtered_videos)
+  visualize_proportion(proportion_data)
 }
+
+
+
+
