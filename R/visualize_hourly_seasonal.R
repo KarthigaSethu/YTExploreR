@@ -1,78 +1,10 @@
-
-#' Monthly Upload Activity
-#'
-#' Input a YouTube channel id and retrieves activities that are carried out by that channel.
-#' This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more.
-#'
-#'
-#' @param chan_id
-#' @param year
-#'
-#' @return sorted dataframe with columns associated with channel activity
-#'
-#' @import httr
-#' @import jsonlite
-#' @import dplyr
-#'
-
-get_monthly_uploads <- function(chan_id, year) {
-
-  api_key <- Sys.getenv("YOUTUBE_API")
-
-  uploads_df <- data.frame()
-
-  for (month in 1:12) {
-
-    date_range <- format_date(month, year)
-
-    params <- list(
-      part = "snippet,contentDetails",
-      channelId = chan_id,
-      maxResults = 50,
-      key = api_key,
-      publishedBefore = date_range$end_date,
-      publishedAfter = date_range$start_date
-    )
-
-    url <- 'https://youtube.googleapis.com/youtube/v3/activities?'
-
-    r <- GET(url, query = params)
-
-    if (status_code(r) != 200) {
-      next
-    }
-
-    response_data <- fromJSON(content(r, "text"))
-
-    # Check if there are items in the response
-    if (length(response_data$items) > 0) {
-      publishedAt <- response_data$items$snippet$publishedAt
-      title <- response_data$items$snippet$title
-      type <- response_data$items$snippet$type
-      videoId <- response_data$items$contentDetails$upload$videoId
-      channelTitle <- response_data$items$snippet$channelTitle
-
-      uploads_df <- bind_rows(uploads_df, data.frame(publishedAt, title, type, videoId, channelTitle))
-    }
-  }
-
-  # Filter for only 'upload' type
-  if (nrow(uploads_df) == 0) {
-    return ("No data available for the selected year")
-  } else {
-    result_df_uploads <- uploads_df %>%
-      filter(type == 'upload')
-
-    return(result_df_uploads)
-  }
-
-}
-
 #' Hourly Uploads by Season for Channel Name in Year
 #'
 #' @param uploads_df
 #'
 #' @return Layered histogram and KDE plots displaying hourly uploads; faceted by season, data partitioned by year
+#'
+#' @include YTExploreR_get_uploads.R
 #'
 #'
 
