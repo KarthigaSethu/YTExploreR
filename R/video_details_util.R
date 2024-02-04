@@ -47,6 +47,7 @@ Extract_Time_in_mins<-function(input)
 #' 12.comments
 #' 13.publishedyear
 #' and converts data into appropriate type
+#' Added proper exceptions that gives clear message on why the method fails
 #'
 #' @param video_id id of a video or comma seperated ids of a video
 #' @param api_key api key to authenticate API
@@ -60,49 +61,60 @@ Extract_Time_in_mins<-function(input)
 #' Get_Video_Detail("Ks-_Mh1QhMc,Ks-_Mh1QhMc", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
 Get_Video_Detail <- function(video_id, api_key)
 {
-  url <- paste0("https://youtube.googleapis.com/youtube/v3/videos",
-                "?part=snippet%2CcontentDetails%2Cstatistics",
-                "&id=",video_id,
-                "&key=", api_key)
-  headers <- c(
-    "Authorization" = "Bearer AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",
-    "Accept" = "application/json"
-  )
-  response <- httr::GET(url, headers = headers)
-  video_detail <- jsonlite::fromJSON(httr::content(response, "text"))
+  tryCatch({
+    if (missing(video_id) || missing(api_key)) {
+      stop("Both 'video_id' and 'api_key' are required parameters.")
+    }
+    url <- paste0("https://youtube.googleapis.com/youtube/v3/videos",
+                  "?part=snippet%2CcontentDetails%2Cstatistics",
+                  "&id=",video_id,
+                  "&key=", api_key)
+    headers <- c(
+      "Authorization" = "Bearer AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",
+      "Accept" = "application/json"
+    )
+    response <- httr::GET(url, headers = headers)
+    if (httr::http_error(response)) {
+      stop("An error occurred: ", httr::http_status(response)$message)
+    }
+    video_detail <- jsonlite::fromJSON(httr::content(response, "text"))
 
-  channelId = video_detail$items$snippet$channelId
-  channelName = video_detail$items$snippet$channelTitle
-  videoID = video_detail$items$id
-  videotitle = video_detail$items$snippet$title
-  publishedAt = video_detail$items$snippet$publishedAt
-  categoryid = video_detail$items$snippet$categoryId
-  duration = video_detail$items$contentDetails$duration
-  duration = Extract_Time_in_mins(duration)
-  definition = video_detail$items$contentDetails$definition
-  views =  video_detail$items$statistics$viewCount
-  likes = video_detail$items$statistics$likeCount
-  favourites = video_detail$items$statistics$favoriteCount
-  comments = video_detail$items$statistics$commentCount
+    channelId = video_detail$items$snippet$channelId
+    channelName = video_detail$items$snippet$channelTitle
+    videoID = video_detail$items$id
+    videotitle = video_detail$items$snippet$title
+    publishedAt = video_detail$items$snippet$publishedAt
+    categoryid = video_detail$items$snippet$categoryId
+    duration = video_detail$items$contentDetails$duration
+    duration = unlist(lapply(duration, Extract_Time_in_mins))
+    definition = video_detail$items$contentDetails$definition
+    views =  video_detail$items$statistics$viewCount
+    likes = video_detail$items$statistics$likeCount
+    favourites = video_detail$items$statistics$favoriteCount
+    comments = video_detail$items$statistics$commentCount
 
-  publishedAt = as.POSIXlt(publishedAt, format = "%Y-%m-%dT%H:%M:%SZ")
-  publishedmonth <- format(publishedAt, "%B")
-  publishedyear <- format(publishedAt, "%Y")
+    publishedAt = as.POSIXlt(publishedAt, format = "%Y-%m-%dT%H:%M:%SZ")
+    publishedmonth <- format(publishedAt, "%B")
+    publishedyear <- format(publishedAt, "%Y")
 
-  data <- data.frame(
-    channelId = channelId,
-    videoID = videoID,
-    videotitle = videotitle,
-    publishedAt = publishedAt,
-    publishedmonth = publishedmonth,
-    publishedyear = publishedyear,
-    categoryid = categoryid,
-    duration = duration,
-    definition = definition,
-    views = as.numeric(views),
-    likes = as.numeric(likes),
-    favourites = as.numeric(favourites),
-    comments = as.numeric(comments)
-  )
-  return(data)
+    data <- data.frame(
+      channelId = channelId,
+      videoID = videoID,
+      videotitle = videotitle,
+      publishedAt = publishedAt,
+      publishedmonth = publishedmonth,
+      publishedyear = publishedyear,
+      categoryid = categoryid,
+      duration = duration,
+      definition = definition,
+      views = as.numeric(views),
+      likes = as.numeric(likes),
+      favourites = as.numeric(favourites),
+      comments = as.numeric(comments)
+    )
+    return(data)
+  }, error = function(e){
+    message("An error occurred: ", e$message)
+    return(NULL)
+  })
 }

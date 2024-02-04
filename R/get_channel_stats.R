@@ -15,12 +15,12 @@
 #' - country: The country with which the channel is associated.
 #' - thumbnails_present: Indicates whether thumbnails are present (Yes/No)
 #' - engagement_ratio: The ratio of subscribers to views (in percentage)
-#'
+#' - channelID: ID of that channel
 #' @export
 #'
 #' @examples
 #' # Set your API key
-#' api_key <- "REPLACE_WITH_A_VALID_KEY"
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
 #' # Define channel IDs
 #' channel_ids <- c("UCtYLUTtgS3k1Fg4y5tAhLbw",  # Statquest
 #'                 "UCLLw7jmFsvfIVaUFsLs8mlQ")  # Luke Barousse
@@ -49,6 +49,7 @@ get_channel_stats <- function(api_key, channel_ids) {
     channelStartDate <- channel_stats$items$snippet$publishedAt
 
     data <- data.frame(
+      channelID = channel_stats$items$id,
       channelName = channel_stats$items$snippet$title,
       channelStartDate = channel_stats$items$snippet$publishedAt,
       numberSubscribers = as.integer(channel_stats$items$statistics$subscriberCount),

@@ -22,6 +22,7 @@ The output dataframe contains:
 \item categoryId
 \item categoryTitle
 \item channelId
+Added proper exceptions that gives clear message on why the method fails
 }
 }
 \examples{
