@@ -21,6 +21,7 @@ This method gives details such as:
 12.comments
 13.publishedyear
 and converts data into appropriate type
+Added proper exceptions that gives clear message on why the method fails
 }}
 \usage{
 Get_Video_Detail(video_id, api_key)
@@ -53,6 +54,7 @@ This method gives details such as:
 12.comments
 13.publishedyear
 and converts data into appropriate type
+Added proper exceptions that gives clear message on why the method fails
 }
 }
 \examples{

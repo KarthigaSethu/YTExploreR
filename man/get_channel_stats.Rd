@@ -23,6 +23,7 @@ A data frame with the statistics, including:
 \item country: The country with which the channel is associated.
 \item thumbnails_present: Indicates whether thumbnails are present (Yes/No)
 \item engagement_ratio: The ratio of subscribers to views (in percentage)
+\item channelID: id specific to the channel
 }
 }
 \description{

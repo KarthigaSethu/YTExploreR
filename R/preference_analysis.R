@@ -18,6 +18,7 @@ library(ggplot2)
 #' @examples preprare_data("ZTt9gsGcdDo,Qf06XDYXCXI")
 #' @include video_details_util.R
 #' @include video_category_util.R
+#' @include get_channel_stats.R
 preprare_data<-function(video_ids)
 {
   videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
@@ -33,6 +34,10 @@ preprare_data<-function(video_ids)
   category_ids <- paste(category_ids, collapse = ",")
   category_details <- Get_Video_Category(category_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
   merged_info <- merge(category_info, category_details, by.x = "categoryid", by.y = "categoryId")
+  merged_info$channelID <- merged_info$channelId.x
+  channel_ids<- paste(merged_info$channelId.x, collapse = ",")
+  channel_info <- get_channel_stats("AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",channel_ids)
+  merged_info <- merge(merged_info, channel_info, by.x = "channelID", by.y = "channelID")
   merged_info
 }
 
@@ -94,7 +99,7 @@ calculate_and_display_summary<-function(merged_info)
   print(" ",quote=FALSE)
   print("OVERALL CATEGORY: ")
   print(setNames(merged_info[, c("categoryTitle", "count", "duration_sum", "percentage_duration")],
-                               c("Category", "Count", "Duration in mins", "Percecntage")))
+                 c("Category", "Count", "Duration in mins", "Percecntage")))
 }
 
 #' Helps to display category in pi chart
@@ -123,6 +128,32 @@ visualize<-function(merged_info)
   print(category_plot)
 }
 
+#' Helps to display category in pi chart
+#'@description
+#'This method helps to create pi chart
+#'with each slice representing the count of each category
+#'
+#' @param merged_info
+#' @import ggplot2
+#' @export
+#' @examples
+#' merged_data <- data.frame(categoryid = c("22", "27"),
+#'       channelId = c("UCAuUUnT6oDeKwE6v1NGQxug", "UCtYLUTtgS3k1Fg4y5tAhLbw"),
+#'       channelName = c("TED", "Cookd"),
+#'       categoryTitle = c("Entertainment","Education"),
+#'       count = c(1, 19),
+#'       duration_sum = c(21.05, 399.95),
+#'       percentage_duration = c(5, 95))
+#' visualize(merged_data)
+visualize_channel<-function(merged_info)
+{
+  ggplot(merged_info, aes(x = channelName, y = 1, size = duration_sum, color = channelName)) +
+    geom_point(alpha = 0.7,show.legend = FALSE) +
+    scale_size_continuous(range = c(20, 70)) +
+    labs(x = "Channel Name", y = NULL, size = "Duration", title="Visualizing Watch time per channel")+
+    theme_minimal()
+}
+
 #' Main function that helps to co-ordinate all the functions
 #'
 #'This method calls prepare_data method to get data frame
@@ -137,8 +168,22 @@ visualize<-function(merged_info)
 #' @examples get_Preference_Breakdowm("Ks-_Mh1QhMc,Qf06XDYXCXI")
 get_Preference_Breakdowm<-function(video_ids)
 {
-  video_ids <- gsub(" ", "", video_ids)
-  merged_info <- preprare_data(video_ids)
-  calculate_and_display_summary(merged_info)
-  visualize(merged_info)
+  tryCatch({
+    if(missing(video_ids)){
+      stop("video_ids parameter is required but its missing")
+    }
+    num_commas <- str_count(video_ids,",")
+    print(num_commas)
+    if(num_commas<9){
+      stop("video_ids parameter should atleast contain 20 parameter")
+    }
+    video_ids <- gsub(" ", "", video_ids)
+    merged_info <- preprare_data(video_ids)
+    calculate_and_display_summary(merged_info)
+    visualize(merged_info)
+  },error = function(e){
+    message("An error occurred: ", e$message)
+    return(NULL)
+  }
+  )
 }
