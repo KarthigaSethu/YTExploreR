@@ -189,7 +189,7 @@ create_engagement_plot <- function(channel_stats) {
 #' @examples
 #' # Providing a valid API Key and channel ids
 #' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
-#' channel_ids = c('UCtYLUTtgS3k1Fg4y5tAhLbw',
+#' channel_ids <- c('UCtYLUTtgS3k1Fg4y5tAhLbw',
 #'                 'UCCezIgC97PvUuR4_gbFUs5g',
 #'                 'UCfzlCWGWYyIQ0aLC5w48gBQ',
 #'                 'UCNU_lfiiWBdtULKOw6X0Dig',
@@ -203,6 +203,8 @@ create_engagement_plot <- function(channel_stats) {
 #' channel_stats <- get_channel_stats(api_key, channel_ids)
 #' growth_plot <- create_growth_plot(channel_stats)
 create_growth_plot <- function(channel_stats) {
+
+  library(ggrepel)
 
   if (nrow(channel_stats) > 4) {
     # Custom function to format size legend values
@@ -232,4 +234,6 @@ create_growth_plot <- function(channel_stats) {
   }
 
 }
+
+
 
