@@ -70,7 +70,7 @@ calculate_and_display_summary<-function(merged_info)
   min_category_percentage <- sum(merged_info$percentage_duration[merged_info$count == min_category])
   max_category_percentage <- sum(merged_info$percentage_duration[merged_info$count == max_category])
 
-  print("LEASE FAVOURTIE CATEGORY:")
+  print("LEAST FAVOURITE CATEGORY:")
   if(length(min_categorylist) == 1) {
     print(paste("Your least favourite category is ",min_categorylist[1]))
   }
@@ -81,7 +81,7 @@ calculate_and_display_summary<-function(merged_info)
   print(paste0("Total percentage of time spend in least favourite category: ", min_category_percentage,"%"))
 
   print(" ",quote=FALSE)
-  print("MOST FAVOURTIE CATEGORY: ")
+  print("MOST FAVOURITE CATEGORY: ")
   if(length(max_categorylist) == 1) {
     print(paste("Your most favourite category is ",max_categorylist[1]))
   }
@@ -119,8 +119,36 @@ visualize<-function(merged_info)
     geom_bar(stat = "identity") +
     coord_polar("y", start = 0) +
     labs(title = "Breakdown on your watch category", fill = "categoryTitle") +
-    theme_minimal()
+    theme_minimal()+
+    labs(x="")
   print(category_plot)
+}
+
+#' Helps to display category in pi chart
+#'@description
+#'This method helps to create pi chart
+#'with each slice representing the count of each category
+#'
+#' @param merged_info
+#' @import ggplot2
+#' @export
+#' @examples
+#' merged_data <- data.frame(categoryid = c("22", "27"),
+#'       channelId = c("UCAuUUnT6oDeKwE6v1NGQxug", "UCtYLUTtgS3k1Fg4y5tAhLbw"),
+#'       channelName = c("TED", "Cookd"),
+#'       categoryTitle = c("Entertainment","Education"),
+#'       count = c(1, 19),
+#'       duration_sum = c(21.05, 399.95),
+#'       percentage_duration = c(5, 95))
+#' visualize(merged_data)
+visualize_channel<-function(merged_info)
+{
+  ggplot(merged_info, aes(x = channelName, y = 1, size = duration_sum, color = channelName)) +
+    geom_point(alpha = 0.7,show.legend = FALSE) +
+    scale_size_continuous(range = c(20, 70)) +
+    labs(x = "Channel Name", y = NULL, size = "Duration", title=" Watch time per channel")+
+    theme_minimal()+
+    labs(y="")
 }
 
 #' Main function that helps to co-ordinate all the functions
@@ -134,11 +162,25 @@ visualize<-function(merged_info)
 #' @export
 #' @import dplyr
 #' @import ggplot2
-#' @examples get_Preference_Breakdowm("Ks-_Mh1QhMc,Qf06XDYXCXI")
-get_Preference_Breakdowm<-function(video_ids)
+#' @examples get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
+get_Preference_Breakdown<-function(video_ids)
 {
-  video_ids <- gsub(" ", "", video_ids)
-  merged_info <- preprare_data(video_ids)
-  calculate_and_display_summary(merged_info)
-  visualize(merged_info)
+  tryCatch({
+    if(missing(video_ids)){
+      stop("video_ids parameter is required but its missing")
+    }
+    num_commas <- str_count(video_ids,",")
+    if(num_commas<9){
+      stop("video_ids parameter should atleast contain 20 parameter")
+    }
+    video_ids <- gsub(" ", "", video_ids)
+    merged_info <- preprare_data(video_ids)
+    calculate_and_display_summary(merged_info)
+    visualize(merged_info)
+    visualize_channel(merged_info)
+  },error = function(e){
+    message("An error occurred: ", e$message)
+    return(NULL)
+  }
+  )
 }

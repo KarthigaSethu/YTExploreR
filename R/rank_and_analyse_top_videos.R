@@ -122,11 +122,11 @@ calculate_proportion<-function(filtered_video_details, full_video_detail)
 #' visualize_proportion(dummy_data)
 visualize_proportion<-function(proportion_data)
 {
-  print(proportion_data)
-     ggplot(proportion_data, aes(x = Category, y = Proportion)) +
-     geom_bar(stat = 'identity', fill = "steelblue", width = 0.5) +
-     labs(x = "Categories", y = "Proportion (%)", title = "Proportions of Views, Likes, Comments, and Duration of Top 10 Videos") +
-     theme_minimal()
+  ggplot(proportion_data, aes(x = Category, y = Proportion,fill = Category)) +
+    geom_bar(stat = 'identity',  width = 0.5) +
+    labs(x = "", y = "Proportion (%)", title = "Proportions of Top 10 Videos") +
+    theme_minimal()
+
 }
 
 #' Helps to co-ordinate all the function

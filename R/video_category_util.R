@@ -19,25 +19,36 @@ library(jsonlite)
 #'Get_Video_Category("22", "AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
 Get_Video_Category <- function(categoryid, api_key)
 {
-  url <- paste0("https://youtube.googleapis.com/youtube/v3/videoCategories",
-                "?part=snippet",
-                "&id=",categoryid,
-                "&key=", api_key)
-  headers <- c(
-    "Authorization" = "Bearer AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",
-    "Accept" = "application/json"
-  )
-  response <- httr::GET(url, headers = headers)
-  category_detail <- jsonlite::fromJSON(httr::content(response, "text"))
-  categoryId = category_detail$items$id
-  categoryTitle = category_detail$items$snippet$title
-  channelId =     category_detail$items$snippet$channelId
-  data <- data.frame(
-    categoryId = categoryId,
-    categoryTitle = categoryTitle,
-    channelId = channelId
-  )
-  return(data)
+  tryCatch({
+    if (missing(categoryid) || missing(api_key)) {
+      stop("Both 'categoryid' and 'api_key' are required parameters.")
+    }
+    url <- paste0("https://youtube.googleapis.com/youtube/v3/videoCategories",
+                  "?part=snippet",
+                  "&id=",categoryid,
+                  "&key=", api_key)
+    headers <- c(
+      "Authorization" = "Bearer AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",
+      "Accept" = "application/json"
+    )
+    response <- httr::GET(url, headers = headers)
+    if (httr::http_error(response)) {
+      stop(httr::http_status(response)$message)
+    }
+    category_detail <- jsonlite::fromJSON(httr::content(response, "text"))
+    categoryId = category_detail$items$id
+    categoryTitle = category_detail$items$snippet$title
+    channelId =     category_detail$items$snippet$channelId
+    data <- data.frame(
+      categoryId = categoryId,
+      categoryTitle = categoryTitle,
+      channelId = channelId
+    )
+    return(data)
+  }, error = function(e){
+    message("An error occurred: ", e$message)
+    return(NULL)
+  })
 }
 
 
