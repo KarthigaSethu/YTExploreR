@@ -14,16 +14,23 @@ Imports:
     dplyr,
     httr,
     jsonlite,
-    stringr
+    stringr,
+    ggrepel,
+    ggtext,
+    gridExtra,
+    viridis
 Collate: 
     'YTExploreR-package.R'
     'YTExploreR_get_uploads.R'
-    'access_top10_videos.R'
+    'channel_comparator_plots.R'
+    'display_individual_channel_stats.R'
     'get_channel_stats.R'
+    'get_video_ids.R'
     'video_category_util.R'
     'video_details_util.R'
     'preference_analysis.R'
     'rank_and_analyse_top_videos.R'
+    'visualize_hourly_seasonal.R'
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3

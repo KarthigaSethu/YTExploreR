@@ -18,11 +18,13 @@
 #' display_channel_info(channel_stats)
 display_channel_info <- function(channel_stats){
 
+  # Check if the number of rows in channel_stats is one
+  if (nrow(channel_stats) == 1) {
+
   # Load libraries
   library(knitr)
   library(kableExtra)
 
-  channel_stats$engagement_ratio <- round(channel_stats$engagement_ratio, 0)
   channel_stats$numberSubscribers <- channel_stats$numberSubscribers / 1000
   channel_stats$numberViews <- channel_stats$numberViews / 1000
 
@@ -41,5 +43,7 @@ display_channel_info <- function(channel_stats){
   table_channel_stats <-  kbl(t(channel_stats[,-7]), caption = "Channel information:") %>%
                           kable_classic(full_width = F, html_font = "Cambria")
 
-  return(table_channel_stats)
+  return(table_channel_stats)}else {
+    stop("Error: The number of rows in your data frame is greater than 1. This method support up to 1 channel.")
+  }
 }
