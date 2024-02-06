@@ -27,24 +27,24 @@ devtools::install_github("YTExploreR.R")
 
 ### Wrapping functions
 
-- **Channels**
-  - **get_channel_stats()**:  It retrieves a data frame with the statistics, including:   channel ID, channel title, number subscribers, number views, total videos, playlist ID,
+- **get_channel_stats()**:  This method uses channels API. It receives a valid API key and channel ID's and retrieves a data frame with the statistics, including:   channel ID, channel title, number subscribers, number views, total videos, playlist ID,
+
+  
 channel start date, country, thumbnails_present and engagement_ratio (number of views / number of subscribers). 
-
-- **Videos**
- 
--**Videos categories()**  
-  - **Get_Video_Category():** This method uses video category api, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.        
-
--**Activities()**
+- **Get_Video_Detail():** This method uses videos API. It receives a video or various videos separated by comma to retrieve a data frame with details about the video: channel id, video id, video title, video date, category id, duration, definition, views, likes, favorites, comments, year and month.
+- **Get_Video_Category():** This method uses video categories API, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.
+- **Get_monthly_uploads():**  This method uses activities API. It receives a YouTube channel id as input and retrieves activities that are carried out by that channel. This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more.
 
 ### Functionalities
 - Channel Information:
-  - Retrieves the channel id and channel statistics (views, likes, comments, subscribers). 
-  - Visualize using a tree map.
+  - **display_channel_info():** Retrieves a beutify table with the information from one channel id.
 - Channel Comparator:
   - Based on the channel information compare summary statistics between channels.
-  - Visualize, using a stack bar chart.
+  - **create_bar_subscribers_plot:** Function to create a bar plot to visualize the number of subscribers for 2 or more channel IDs.
+  - **create_bar_views_plot:** Function to create a bar plot to visualize the number of views for 2 or more channel IDs.
+  - **create_bar_videos_plot:** Function to create a bar plot for the number of videos of 2 or more channel IDs.
+  - **create_engagement_plot:** Function to create a barplot to understand the relationship between the number of subscribers and the number of views on the channel, helping to gauge the channel's level of engagement with its audience.
+  - **create_growth_plot:** Creates a bubble plot that shows the relationship between the number of subscribers,number of views and total videos per channel, per content creator adding the start date of the channel.
 - Top ten videos of a channel: 
   - Ranking videos base on a weigthed cumulative metric: 0.4(shares)+0.3(views)+0.2(comments)+0.2(likes)
   - Visualize using a proportional bar chart
