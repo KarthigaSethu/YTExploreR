@@ -28,26 +28,45 @@ devtools::install_github("YTExploreR.R")
 ### Wrapping functions
 
 - **get_channel_stats()**:  This method uses channels API. It receives a valid API key and channel ID's and retrieves a data frame with the statistics, including:   channel ID, channel title, number subscribers, number views, total videos, playlist ID,
-
-  
 channel start date, country, thumbnails_present and engagement_ratio (number of views / number of subscribers). 
-- **Get_Video_Detail():** This method uses videos API. It receives a video or various videos separated by comma to retrieve a data frame with details about the video: channel id, video id, video title, video date, category id, duration, definition, views, likes, favorites, comments, year and month.
+- **Get_Video_Detail():** This method uses videos API . It receives one videoID or comma separated multiple videoIDs to retrieve a data frame with details about the video: channel id, video id, video title, video date, category id, duration, definition, views, likes, favorites, comments, year and month. In order to make the function reliable and usable proper try-catch exception and helper functions(extracts time components, ISO 8601 to time in minutes converted) has been added.
 - **Get_Video_Category():** This method uses video categories API, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.
 - **Get_monthly_uploads():**  This method uses activities API. It receives a YouTube channel id as input and retrieves activities that are carried out by that channel. This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more.
 
 ### Functionalities
-- Channel Information:
-  - **display_channel_info():** Retrieves a beutify table with the information from one channel id.
-- Channel Comparator:
+
+#### Channel Information:
+  - **display_channel_info():** Retrieves a beautify table with the information from one channel id.
+
+#### Channel Comparator:
   - Based on the channel information compare summary statistics between channels.
   - **create_bar_subscribers_plot:** Function to create a bar plot to visualize the number of subscribers for 2 or more channel IDs.
   - **create_bar_views_plot:** Function to create a bar plot to visualize the number of views for 2 or more channel IDs.
   - **create_bar_videos_plot:** Function to create a bar plot for the number of videos of 2 or more channel IDs.
   - **create_engagement_plot:** Function to create a barplot to understand the relationship between the number of subscribers and the number of views on the channel, helping to gauge the channel's level of engagement with its audience.
   - **create_growth_plot:** Creates a bubble plot that shows the relationship between the number of subscribers,number of views and total videos per channel, per content creator adding the start date of the channel.
-- Top ten videos of a channel: 
-  - Ranking videos base on a weigthed cumulative metric: 0.4(shares)+0.3(views)+0.2(comments)+0.2(likes)
-  - Visualize using a proportional bar chart
+  
+#### Rank and Analyse videos in a channel:
+ - **get_video_and_rank:**  Ranking videos base on a weighted cumulative metric 0.3(views)+0.2(comments)+0.2(likes)
+ - **calculate_proportion:** Calculates proportion of views, likes, duration, comments 
+ - **visualize_proportion*:*  Visualizes the proportional of views, likes, duration, comments in bar chart
+ - **print_videos:** Helps to print top 10 videos
+ - **get_top10_videos:** Co-ordinates all the function above and give a summary of top 10 videos and bar chart on proportions
+
+###### Sample outputs:
+![Summary](Image_sources/RankandAnalysis2.png)
+![Plot](Image_sources/Rankand Analysis.png)
+
+#### Preference Analysis:
+- **preprare_data:** Gets video details, groups it by channelID and Category ID and gets the count and number of videos per category. Then Merges it with Category API detail to get category title. Then merges this data with channel API data to get title of the channel.
+- **calculate_and_display_summary:** Calculates Least and most favourite Category or categories. Gives summary on all the categories. 
+- **visualize_channel and visualize:** It visualizes the channel in bubble plot where size of the bubble is proportional to time they spent on the channel.
+
+###### Sample outputs:
+![Summary](Image_sources/PreferenceBreakdown3.png)
+![Plot on category](Image_sources/PreferenceBreakdown.png)
+![Plot on channel](Image_sources/PreferenceBreakdown2.png)
+
 - Bottom ten videos of a channel 
   - Ranking videos base on a weigthed cumulative metric: 0.4(shares)+0.3(views)+0.2(comments)+0.2(likes)
   - Visualize using a bar chart setting the y-axis with the proprtion (range from 0 to 1.) 
