@@ -18,6 +18,7 @@ library(ggplot2)
 #' @examples preprare_data("ZTt9gsGcdDo,Qf06XDYXCXI")
 #' @include video_details_util.R
 #' @include video_category_util.R
+#' @include get_channel_stats.R
 preprare_data<-function(video_ids)
 {
   videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
@@ -32,7 +33,11 @@ preprare_data<-function(video_ids)
   category_ids <- category_info$categoryid
   category_ids <- paste(category_ids, collapse = ",")
   category_details <- Get_Video_Category(category_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
-  merged_info <- merge(category_info, category_details, by.x = "categoryid", by.y = "categoryId")
+  merged_info <- merge(category_info, category_details, by.x="categoryid",by.y="categoryId")
+  merged_info$channelID <- merged_info$channelId.x
+  channel_ids<- paste(merged_info$channelId.x, collapse = ",")
+  channel_info <- get_channel_stats("AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c",channel_ids)
+  merged_info <- merge(merged_info, channel_info, by.x = "channelID", by.y = "channelID")
   merged_info
 }
 
@@ -140,14 +145,14 @@ visualize<-function(merged_info)
 #'       count = c(1, 19),
 #'       duration_sum = c(21.05, 399.95),
 #'       percentage_duration = c(5, 95))
-#' visualize(merged_data)
+#' visualize_channel(merged_data)
 visualize_channel<-function(merged_info)
 {
   ggplot(merged_info, aes(x = channelName, y = 1, size = duration_sum, color = channelName)) +
     geom_point(alpha = 0.7,show.legend = FALSE) +
     scale_size_continuous(range = c(20, 70)) +
     labs(x = "Channel Name", y = NULL, size = "Duration", title=" Watch time per channel")+
-    theme_minimal()+
+    theme(axis.text.y=element_blank())+
     labs(y="")
 }
 
