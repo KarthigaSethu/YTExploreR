@@ -1,9 +1,3 @@
-library(tidyverse)
-library(httr)
-library(dplyr)
-library(jsonlite)
-library(ggplot2)
-library(usethis)
 
 
 #' Date Formatter
@@ -35,11 +29,12 @@ format_date <- function(month, year) {
 #' @import httr
 #' @import jsonlite
 #' @import dplyr
+#' @import tidyr
 #'
 
 get_monthly_uploads <- function(chan_id, year) {
 
-  api_key <- Sys.getenv("YOUTUBE_API")
+  api_key <- "AIzaSyB7eL6rh3LTKBm6rYyCDdWUFraAArhmntQ"
 
   uploads_df <- data.frame()
 
@@ -90,8 +85,6 @@ get_monthly_uploads <- function(chan_id, year) {
 
 }
 
-#get_monthly_uploads("UCW7AGm8JSBEEew61dJIgl_A", 2022)
-
 
 #' Visualize Monthly Uploads
 #'
@@ -101,7 +94,7 @@ get_monthly_uploads <- function(chan_id, year) {
 #'
 #' @return A ggplot2 line plot displaying the monthly upload activity OR a single string explaining that the year is out of scope
 #'
-#' @import ggplot
+#' @import ggplot2
 #' @import dplyr
 #'
 
@@ -120,11 +113,16 @@ visualize_monthly_uploads <- function(uploads_df) {
 
   monthly_summary <- all_months %>%
     left_join(uploads_df %>% group_by(month, year) %>% summarise(upload_count = n()), by = c("month", "year")) %>%
-    mutate(upload_count = replace_na(upload_count, 0))
+    dplyr::mutate(upload_count = tidyr::replace_na(upload_count, 0))
 
-  ggplot(monthly_summary, aes(x = month, y = upload_count, group = year)) +
-    geom_line(linetype = "solid") +
-    geom_point() +
+  average_upload <- monthly_summary %>%
+    group_by(month) %>%
+    summarise(avg_upload_count = mean(upload_count, na.rm = TRUE))
+
+
+  monthly_line <- ggplot(monthly_summary, aes(x = month, y = upload_count, group = year)) +
+    geom_line(linetype = "solid", linewidth = 1.5, color="blue") +
+    geom_point(size=2, color="black") +
     labs(title = paste("Monthly Upload Activity for", unique(uploads_df$channelTitle), "in", unique(uploads_df$year)),
          x = "",
          y = "Channel Upload Activity") +
@@ -133,8 +131,11 @@ visualize_monthly_uploads <- function(uploads_df) {
       labels = month.name) +
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
     ylim(0, max(monthly_summary$upload_count))
+
+  combined_plot <- monthly_line +
+    annotate("segment", x = min(monthly_summary$month), xend = max(monthly_summary$month),
+             y = mean(monthly_summary$upload_count), yend = mean(monthly_summary$upload_count),
+             linetype = "dashed", color = "red", size = 1)
+
+  combined_plot
 }
-
-annual_uploads <- get_monthly_uploads('UCQKnyICqWksz8ygILHS01gQ', 2019)
-visualize_monthly_uploads(annual_uploads)
-
