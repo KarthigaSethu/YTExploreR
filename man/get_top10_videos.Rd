@@ -8,7 +8,7 @@ Then filters top 10 videos
 Then helps to calculate proportion by calling calculate_proportion
 Then prints and visualizes data}
 \usage{
-get_top10_videos(channelId)
+get_top10_videos(channelId, year)
 }
 \arguments{
 \item{channelId}{}
@@ -21,5 +21,5 @@ Then helps to calculate proportion by calling calculate_proportion
 Then prints and visualizes data
 }
 \examples{
-get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw")
+get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw",2023)
 }

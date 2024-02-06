@@ -4,10 +4,10 @@
 \alias{get_video_and_rank}
 \title{Helps to rank the videos}
 \usage{
-get_video_and_rank(channelID)
+get_video_and_rank(channelID, year)
 }
 \arguments{
-\item{channelID}{}
+\item{year}{}
 }
 \value{
 videos a dataframe
@@ -20,5 +20,5 @@ This formula is used because instead of giving equal weight age for views, likes
 we want to emphasize on it's importance
 }
 \examples{
-get_video_and_rank("UCtYLUTtgS3k1Fg4y5tAhLbw")
+get_video_and_rank("UCtYLUTtgS3k1Fg4y5tAhLbw",2023)
 }
