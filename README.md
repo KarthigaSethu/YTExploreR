@@ -1,9 +1,42 @@
-## YTExploreR
-Our goal is to create an R package that wraps the YouTube API into a set of functions designed to assist creators and viewers in better understanding how the free video-sharing website works. Specifically, from the perspective of a new creator, we aim to retrieve statistics that serve as guidelines to start a channel. On the other hand, for those who enjoy using YouTube as viewers, our R package aims to enhance their experience through functions to visualize various metrics. This will help them effortlessly delve into those channels
-Documentation: [YouTube APIs](https://developers.google.com/youtube/v3)
-Format: The data from the YouTube API can be retrieved in JSON format.
-Quota limit:  a default quota allocation of 10,000 units per day. The quota cost per API request is 1 unit, with exception from “Search” that costs 100 units.
-![image](https://github.com/KarthigaSethu/YTExploreR/assets/116229816/843a8871-a7bc-4564-8891-7b27b57d05ce)
+# R PACKAGE: YTExploreR
+
+### Description:
+
+This package wraps the YouTube API into a set of functions designed to assist creators and viewers in better understanding how the free video-sharing website works. Specifically, from the perspective of a new creator, we aim to retrieve statistics that serve as guidelines to start a channel. On the other hand, for those who enjoy using YouTube as viewers, our R package aims to enhance their experience through functions to visualize various metrics. This will help them effortlessly delve into those channels.    
+
+### Limitations      
+
+This package relies on the official YouTube API, [YouTube APIs](https://developers.google.com/youtube/v3). Please be aware that there is a quota limit with a default allocation of 10,000 units per day. The quota cost per API request used in this package is 1 unit.
+
+### How to get started?
+
+1. Get your API key: <"steps">
+
+### This package wraps YouTube API four primary data stores
+
+- [Channels](https://developers.google.com/youtube/v3/docs/channels/list): contains information about a YouTube channel (views, likes, total videos, playlist id, start date of the channel and  country).          
+- [Videos](https://developers.google.com/youtube/v3/docs/videos/list): contains information about a YouTube video (video title, published date, category id, duration, views, likes, comments, etc.)           
+- [VideoCategories](https://developers.google.com/youtube/v3/docs/videoCategories/list): resource identifies a category that has been or could be associated with uploaded videos.    
+- [Activities](https://developers.google.com/youtube/v3/docs/activities/list): contains information about an action that a particular channel, or user, has taken on YouTube. The actions reported in activity feeds include rating a video, sharing a video, marking a video as a favorite, uploading a video, and so forth.        
+
+### Installation 
+
+```
+devtools::install_github("YTExploreR.R")
+```
+
+### Wrapping functions
+
+- **Channels**
+  - **get_channel_stats()**:  It retrieves a data frame with the statistics, including:   channel ID, channel title, number subscribers, number views, total videos, playlist ID,
+channel start date, country, thumbnails_present and engagement_ratio (number of views / number of subscribers). 
+
+- **Videos**
+ 
+-**Videos categories()**  
+  - **Get_Video_Category():** This method uses video category api, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.        
+
+-**Activities()**
 
 ### Functionalities
 - Channel Information:
