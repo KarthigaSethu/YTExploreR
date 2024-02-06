@@ -1,0 +1,71 @@
+---
+title: "Vignette_YTExploreR"
+author: "Andrew Sarraci, Karthiga Setu, and Nayeli Montiel"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette_YTExploreR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(YTExploreR)
+library(ggrepel)
+```
+
+# Examples:  
+
+# Get channel statistics
+```{r ChannelExamples}
+# Set your API key
+api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
+
+# Define channel IDs
+channel_ids <- c('UCtYLUTtgS3k1Fg4y5tAhLbw',
+                 'UCCezIgC97PvUuR4_gbFUs5g',
+                 'UCfzlCWGWYyIQ0aLC5w48gBQ',
+                 'UCNU_lfiiWBdtULKOw6X0Dig',
+                 'UCzL_0nIe8B4-7ShhVPfJkgw',
+                 'UCLLw7jmFsvfIVaUFsLs8mlQ',
+                 'UCiT9RITQ9PW6BhXK0y2jaeg',
+                 'UC7cs8q-gJRlGwj4A8OmCmXg',
+                 'UC2UXDak6o7rBm23k3Vv5dww',
+                 'UCJQJAI7IjbLcpsjWdSzYz0Q')
+
+# Call the function to get channel statistics
+channel_stats <- get_channel_stats(api_key, channel_ids)
+
+# Print the resulting data frame
+print(channel_stats)
+```
+```{r DisplayChannelExample}
+channel <- get_channel_stats(api_key, 'UCtYLUTtgS3k1Fg4y5tAhLbw')
+display_channel_info(channel)
+```
+
+```{r ChannelComparatorExamples}
+bar_subscribers <- create_bar_subscribers_plot(channel_stats)
+bar_views <- create_bar_views_plot(channel_stats)
+bar_videos <- create_bar_videos_plot(channel_stats)
+
+# Arrange the plots side by side
+grid.arrange(bar_videos, bar_subscribers, bar_views, ncol = 3)
+```
+
+```{r ChannelComparatorExamples2}
+proportion_plot <- create_engagement_plot(channel_stats)
+proportion_plot
+```
+
+```{r ChannelComparatorExamples3}
+growth_plot <- create_growth_plot(channel_stats)
+growth_plot
+```
