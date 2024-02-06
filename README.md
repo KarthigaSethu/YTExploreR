@@ -117,7 +117,7 @@ display_channel_info(channel)
 get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
 ```
 ![Summary](Image_sources/RankandAnalysis2.png)
-![Plot](Image_sources/Rankand Analysis.png)
+![Plot](Image_sources/RankandAnalysis.png)
 
 #### Preference Analysis:
 - **preprare_data:** Gets video details, groups it by channelID and Category ID and gets the count and number of videos per category. Then Merges it with Category API detail to get category title. Then merges this data with channel API data to get title of the channel.
