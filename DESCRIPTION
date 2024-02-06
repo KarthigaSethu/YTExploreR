@@ -10,22 +10,28 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports:
+    tidyverse,
+    tidyr,
+    usethis,
+    viridis,
     ggplot2,
     dplyr,
     httr,
     jsonlite,
     stringr,
+    lubridate,
     ggrepel,
     ggtext,
     gridExtra,
-    viridis
+    viridis,
+    anytime,
+    kableExtra
 Collate: 
     'YTExploreR-package.R'
     'YTExploreR_get_uploads.R'
     'channel_comparator_plots.R'
     'display_individual_channel_stats.R'
     'get_channel_stats.R'
-    'get_video_ids.R'
     'video_category_util.R'
     'video_details_util.R'
     'preference_analysis.R'
