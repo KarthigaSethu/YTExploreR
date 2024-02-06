@@ -10,6 +10,7 @@
 #' @import ggtext
 #' @import gridExtra
 #' @import viridis
+#' @import lubridate
 #'
 
 visualize_hourly_patterns <- function(uploads_df) {
@@ -17,10 +18,10 @@ visualize_hourly_patterns <- function(uploads_df) {
     return ("No data available for the selected year")
   }
 
-  uploads_df$publishedAt <- as_datetime(uploads_df$publishedAt)
-  uploads_df$hour <- hour(uploads_df$publishedAt)
-  uploads_df$month <- month(uploads_df$publishedAt)
-  uploads_df$year <- year(uploads_df$publishedAt)
+  uploads_df$publishedAt <- lubridate::as_datetime(uploads_df$publishedAt)
+  uploads_df$hour <- lubridate::hour(uploads_df$publishedAt)
+  uploads_df$month <- lubridate::month(uploads_df$publishedAt)
+  uploads_df$year <- lubridate::year(uploads_df$publishedAt)
   uploads_df$season <- cut(uploads_df$month,
                            breaks = c(0, 3, 6, 9, 12),
                            labels = c("Winter", "Spring", "Summer", "Fall"),
@@ -42,8 +43,6 @@ visualize_hourly_patterns <- function(uploads_df) {
     theme(legend.position = "none")
 }
 
-visualize_hourly_patterns(get_monthly_uploads("UCyPYQTT20IgzVw92LDvtClw", 2022))
-
-
+visualize_hourly_patterns(get_monthly_uploads("UCqFMzb-4AUf6WAIbl132QKA", 2023))
 
 

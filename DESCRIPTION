@@ -2,7 +2,11 @@ Package: YTExploreR
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
 Authors@R: 
-    person("Karthiga Sethu", "Sethuramalingam", , "karthigaksk@gmail.com", role = c("aut", "cre"),
+    c(person("Karthiga Sethu", "Sethuramalingam","karthigaksk@gmail.com", role = c("aut", "cre"),
+    person("Andrew", "Sarracini", "andrewsarracini1@gmail.com", role = c("aut", "cre"),
+    person("Nayeli", "Montiel", "naye.montiel.1806@gmail.com", role = c("aut", "cre")))
+    
+    
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: What the package does (one paragraph).
 License: GPL (>= 3)
@@ -10,17 +14,33 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports:
+    tidyverse,
+    tidyr,
+    ggrepel,
+    ggtext,
+    usethis,
+    viridis,
     ggplot2,
     dplyr,
     httr,
     jsonlite,
-    stringr
+    stringr,
+    lubridate
 Collate: 
     'YTExploreR-package.R'
     'YTExploreR_get_uploads.R'
-    'access_top10_videos.R'
     'get_channel_stats.R'
     'video_category_util.R'
     'video_details_util.R'
     'preference_analysis.R'
     'rank_and_analyse_top_videos.R'
+<<<<<<< Updated upstream
+=======
+    'channel_comparator_plots.R'
+    'display_individual_channel_stats.R'
+    'get_video_ids.R'
+    'visualize_hourly_seasonal.R'
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+>>>>>>> Stashed changes
