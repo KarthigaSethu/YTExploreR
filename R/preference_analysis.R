@@ -148,10 +148,11 @@ visualize<-function(merged_info)
 #' visualize_channel(merged_data)
 visualize_channel<-function(merged_info)
 {
-  ggplot(merged_info, aes(x = channelName, y = 1, size = duration_sum, color = channelName)) +
+  ggplot(merged_info, aes(x = channelName, y = 1, size = count, color = channelName)) +
     geom_point(alpha = 0.7,show.legend = FALSE) +
+    geom_text(aes(label = round(duration_sum)), vjust = -0.5, size=5, color= 'white')+
     scale_size_continuous(range = c(20, 70)) +
-    labs(x = "Channel Name", y = NULL, size = "Duration", title=" Watch time per channel")+
+    labs(x = "Channel Name", y = NULL, size = "Duration", title=" Watch time (in minutes) per channel")+
     theme(axis.text.y=element_blank())+
     labs(y="")
 }

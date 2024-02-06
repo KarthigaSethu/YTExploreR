@@ -59,13 +59,17 @@ channel_stats <- get_channel_stats(api_key, channel_ids)
 print(channel_stats)
 ```
 
-- **Get_Video_Detail():** This method uses videos API. It receives a video or various videos separated by comma to retrieve a data frame with details about the video: channel id, video id, video title, video date, category id, duration, definition, views, likes, favorites, comments, year and month.
-- **Get_Video_Category():** This method uses video categories API, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.
-- **Get_monthly_uploads():**  This method uses activities API. It receives a YouTube channel id as input and retrieves activities that are carried out by that channel. This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more.
-
+- **Get_Video_Detail():** This method uses videos API . It receives one videoID or comma separated multiple videoIDs to retrieve a data frame with details about the video: channel id, video id, video title, video date, category id, duration, definition, views, likes, favorites, comments, year and month. In order to make the function reliable and usable proper try-catch exception and helper functions(extracts time components, ISO 8601 to time in minutes converted) has been added.
+```
+Get_Video_Detail("Ks-_Mh1QhMc,Ks-_Mh1QhMc", {your API Key})
+```
+- **Get_Video_Category():** This method uses video categories API, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.- **Get_monthly_uploads():**  This method uses activities API. It receives a YouTube channel id as input and retrieves activities that are carried out by that channel. This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more.
+```
+Get_Video_Category("22,20", {Your API Key})
+```
 ### Functionalities
 
-- Channel Comparator: This functions help the user to compare 2 or more channel id's base on number of likes, suscribers and total videos. All receive a data frame generated with the get_channel_stats() function in the previous section.
+#### Channel Comparator: This functions help the user to compare 2 or more channel id's base on number of likes, suscribers and total videos. All receive a data frame generated with the get_channel_stats() function in the previous section.
 
   - **create_bar_subscribers_plot:** Function to create a bar plot to visualize the number of subscribers for 2 or more channel IDs.
   - **create_bar_views_plot:** Function to create a bar plot to visualize the number of views for 2 or more channel IDs.
@@ -100,16 +104,37 @@ growth_plot
 channel <- get_channel_stats('your_valid_api', 'UCtYLUTtgS3k1Fg4y5tAhLbw')
 display_channel_info(channel)
 ```
+  
+#### Rank and Analyse videos in a channel:
+ - **get_video_and_rank:**  Ranking videos base on a weighted cumulative metric 0.3(views)+0.2(comments)+0.2(likes)
+ - **calculate_proportion:** Calculates proportion of views, likes, duration, comments 
+ - **visualize_proportion*:*  Visualizes the proportional of views, likes, duration, comments in bar chart
+ - **print_videos:** Helps to print top 10 videos
+ - **get_top10_videos:** Co-ordinates all the function above and give a summary of top 10 videos and bar chart on proportions
 
-- Top ten videos of a channel: 
-  - Ranking videos base on a weigthed cumulative metric: 0.4(shares)+0.3(views)+0.2(comments)+0.2(likes)
-  - Visualize using a proportional bar chart
+###### Sample outputs:
+```
+get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
+```
+![Summary](Image_sources/RankandAnalysis2.png)
+![Plot](Image_sources/Rankand Analysis.png)
+
+#### Preference Analysis:
+- **preprare_data:** Gets video details, groups it by channelID and Category ID and gets the count and number of videos per category. Then Merges it with Category API detail to get category title. Then merges this data with channel API data to get title of the channel.
+- **calculate_and_display_summary:** Calculates Least and most favourite Category or categories. Gives summary on all the categories. 
+- **visualize_channel and visualize:** It visualizes the channel in bubble plot where size of the bubble is proportional to time they spent on the channel.
+
+###### Sample outputs:
+```
+get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
+```
+![Summary](Image_sources/PreferenceBreakdown3.png)
+![Plot on category](Image_sources/PreferenceBreakdown.png)
+![Plot on channel](Image_sources/PreferenceBreakdown2.png)
+
 - Bottom ten videos of a channel 
   - Ranking videos base on a weigthed cumulative metric: 0.4(shares)+0.3(views)+0.2(comments)+0.2(likes)
   - Visualize using a bar chart setting the y-axis with the proprtion (range from 0 to 1.) 
 - Monthly performance: 
   - Analizing the uploads per month and related views.
   - Visualize using a line chart.
-- Preference breakdown: 
-  - Favorite categories and proportion of time spend per category.
-    Visualize using a pie chart.
