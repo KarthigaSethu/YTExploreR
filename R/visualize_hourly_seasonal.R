@@ -43,5 +43,3 @@ visualize_hourly_patterns <- function(uploads_df) {
     theme(legend.position = "none")
 }
 
-visualize_hourly_patterns(get_monthly_uploads("UCqFMzb-4AUf6WAIbl132QKA", 2023))
-

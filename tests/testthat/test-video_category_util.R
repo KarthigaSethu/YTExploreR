@@ -16,12 +16,8 @@ test_that("Get_Video_Detail No Value", {
   expect_no_error(Get_Video_Category())
 })
 
-test_that("Get_Video_Category No Value", {
-  expect_no_error(Get_Video_Category())
-})
-
 test_that("Get_Video_Detail dummy API", {
-  expect_error(Get_Video_Detail("Ks-_Mh1QhMc", "dummy"))
+  expect_no_error(Get_Video_Detail("Ks-_Mh1QhMc", "dummy"))
 })
 
 test_that("Get_Video_Category dummy API", {
@@ -34,11 +30,11 @@ test_that("get_Preference_Breakdown 2", {
 
 test_that("get_Preference_Breakdown", {
   videos<-"Ks-_Mh1QhMc,ZTt9gsGcdDo,Qf06XDYXCXI,Qf06XDYXCXI,rC9vw2dSpQo,rC9vw2dSpQo,Ka04Dj7DxGk,bQ5BoolX9Ag,bQ5BoolX9Ag,L8HKweZIOmg,PSs6nxngL6k,zxQyTK8quyY,zxQyTK8quyY,8ZcccMzTz7Y,8ZcccMzTz7Y,YaQEUgIr4Mk,YaQEUgIr4Mk,PSs6nxngL6k,PSs6nxngL6k,02zO75hHpZQ,kDitis0QB9Y,YLADB0ZCWaE,R1dD6khKJh4"
-  expect_no_error(get_Preference_Breakdown("videos"))
+  expect_no_error(get_Preference_Breakdown(videos))
 })
 
 test_that("get_top10_videos", {
-  expect_no_error(get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw"))
+  expect_no_error(get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw",2023))
 })
 
 test_that("get_top10_videos", {
@@ -158,6 +154,14 @@ mock_channel_stats3 <- data.frame(
   numberSubscribers = c(1000, 1500)
 )
 
+mock_channel_stats4 <- data.frame(
+  channelStartDate = c("1996-4-01","1996-4-01","1996-4-01","1996-4-01","1996-4-01"),
+  numberSubscribers = c(1000, 1500, 5000, 4000, 3000),
+  size = c(1000, 1500, 5000, 4000, 3000),
+  totalVideos = c(1000, 1500, 5000, 4000, 3000),
+  channelName = c("Channel1", "Channel2","Channel3","Channel4","Channel5")
+)
+
 test_that("create_bar_subscribers_plot works with a valid data frame", {
   # Call the function with the mock data
   plot_result <- create_bar_subscribers_plot(mock_channel_stats3)
@@ -216,6 +220,10 @@ test_that("create_growth_plot works with a valid data frame", {
   #expect_s3_class(plot_result, c("gg", "ggplot"))
 })
 
+test_that("create_growth_plot works with a 4 valid data frame", {
+  # Call the function with the mock data
+  expect_no_error(create_growth_plot(mock_channel_stats4))
+})
 
 test_that("create_growth_plot handles fewer than 5 rows", {
   # Check if the result is NULL

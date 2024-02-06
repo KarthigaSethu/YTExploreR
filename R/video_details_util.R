@@ -78,7 +78,7 @@ Get_Video_Detail <- function(video_id, api_key)
   publishedAt = video_detail$items$snippet$publishedAt
   categoryid = video_detail$items$snippet$categoryId
   duration = video_detail$items$contentDetails$duration
-  duration = Extract_Time_in_mins(duration)
+  duration =unlist(lapply(duration, Extract_Time_in_mins))
   definition = video_detail$items$contentDetails$definition
   views =  video_detail$items$statistics$viewCount
   likes = video_detail$items$statistics$likeCount
