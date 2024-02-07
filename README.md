@@ -54,9 +54,6 @@ channel_ids <- c('UCtYLUTtgS3k1Fg4y5tAhLbw',
 
 # Call the function to get channel statistics
 channel_stats <- get_channel_stats(api_key, channel_ids)
-
-# Print the resulting data frame
-print(channel_stats)
 ```
 
 - **Get_Video_Detail():** This method uses videos API . It receives one videoID or comma separated multiple videoIDs to retrieve a data frame with details about the video: channel id, video id, video title, video date, category id, duration, definition, views, likes, favorites, comments, year and month. In order to make the function reliable and usable proper try-catch exception and helper functions(extracts time components, ISO 8601 to time in minutes converted) has been added.
@@ -76,26 +73,32 @@ Get_Video_Category("22,20", {Your API Key})
   - **create_bar_videos_plot:** Function to create a bar plot for the number of videos of 2 or more channel IDs.
  
 ```
+
 bar_subscribers <- create_bar_subscribers_plot(channel_stats)
 bar_views <- create_bar_views_plot(channel_stats)
 bar_videos <- create_bar_videos_plot(channel_stats)
 
 # Arrange the plots side by side
+library("gridExtra")
 grid.arrange(bar_videos, bar_subscribers, bar_views, ncol = 3)
 ```
+![Summary](Image_sources/Channel23.png)
 
   - **create_engagement_plot:** Function to create a barplot to understand the relationship between the number of subscribers and the number of views on the channel, helping to gauge the channel's level of engagement with its audience.
 
-  ```
-proportion_plot <- create_engagement_plot(channel_stats)
-proportion_plot
 ```
+create_engagement_plot(channel_stats)
+```
+![Summary](Image_sources/Channel04.png)
+
   - **create_growth_plot:** Creates a bubble plot that shows the relationship between the number of subscribers,number of views and total videos per channel, per content creator adding the start date of the channel. For a meaningful plot, information of more than 5 channels is recommended!
 
 ```
-growth_plot <- create_growth_plot(channel_stats)
-growth_plot
+create_growth_plot(channel_stats)
 ```
+
+![Summary](Image_sources/Channel06.png)
+
 - Channel Information:
   
   - **display_channel_info():** This function receives the information from one channel statistics and  retrieves a beautiful table with information for one channel ID. Please just input one channel id!!
@@ -104,7 +107,9 @@ growth_plot
 channel <- get_channel_stats('your_valid_api', 'UCtYLUTtgS3k1Fg4y5tAhLbw')
 display_channel_info(channel)
 ```
-  
+
+![Summary](Image_sources/Channel01.png)
+
 #### Rank and Analyse videos in a channel:
  - **get_video_and_rank:**  Ranking videos base on a weighted cumulative metric 0.3(views)+0.2(comments)+0.2(likes)
  - **calculate_proportion:** Calculates proportion of views, likes, duration, comments 
