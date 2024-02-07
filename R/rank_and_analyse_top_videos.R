@@ -1,10 +1,16 @@
 library(ggplot2)
 
-# dummy function
-# NOTE : This has to be replaced once Activity API is ready
-get_video_ids <-function()
+
+#' @param channelId
+#'
+#' @param year
+#' @export
+#'
+#' @include YTExploreR_get_uploads.R
+get_video_ids <-function(channelId,year)
 {
-  video_ids <- c("Ks-_Mh1QhMc","ZTt9gsGcdDo", "Qf06XDYXCXI", "Qf06XDYXCXI", "rC9vw2dSpQo", "rC9vw2dSpQo", "Ka04Dj7DxGk", "bQ5BoolX9Ag", "bQ5BoolX9Ag", "L8HKweZIOmg", "PSs6nxngL6k", "zxQyTK8quyY", "zxQyTK8quyY", "8ZcccMzTz7Y", "8ZcccMzTz7Y", "YaQEUgIr4Mk", "YaQEUgIr4Mk", "PSs6nxngL6k", "PSs6nxngL6k", "02zO75hHpZQ")
+  data <-get_monthly_uploads(channelId, year)
+  video_ids <- data$videoId
   video_ids_string <- paste(video_ids, collapse = ",")
   return(video_ids_string)
 }
@@ -19,20 +25,31 @@ get_video_ids <-function()
 #' we want to emphasize on it's importance
 #'
 #' @param channelID
+#' @param year
 #'
 #' @return videos a dataframe
 #' @export
 #'
 #' @include video_details_util.R
-#' @examples get_video_and_rank("UCtYLUTtgS3k1Fg4y5tAhLbw")
-get_video_and_rank<-function(channelID)
+#' @examples get_video_and_rank("UCtYLUTtgS3k1Fg4y5tAhLbw",2023)
+get_video_and_rank<-function(channelID, year)
 {
-  # Get from Activity but as of now get from dummy method
-  video_ids = get_video_ids()
-  videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
-  videos$points <- ((0.3 * videos$views) + (0.2 * videos$likes) + (0.2 * videos$comments))
-  videos <- videos[order(videos$points), ]
-  videos
+  tryCatch({
+    video_ids = get_video_ids(channelID, year)
+    num_commas <- str_count(video_ids,",")
+    print(num_commas)
+    if(num_commas<19){
+      stop("The channel contains only less than 20 videos")
+    }
+    videos <- Get_Video_Detail(video_ids,"AIzaSyBqrBJzAuitb-PpfyPrV7ABbLn8_nIbK3c")
+    videos$points <- ((0.3 * videos$views) + (0.2 * videos$likes) + (0.2 * videos$comments))
+    videos <- videos[order(videos$points), ]
+    videos
+  },error = function(e){
+    message("An error occurred: ", e$message)
+    return(NULL)
+  }
+  )
 }
 
 #' Helps to print top 10 videos
@@ -56,8 +73,8 @@ get_video_and_rank<-function(channelID)
 #' print_videos(dummy_data)
 print_videos<-function(filtered_video_details, reverse = TRUE)
 {
-  top_videos <- setNames(filtered_video_details[, c("videotitle", "duration", "views", "likes","comments", "points")],
-                         c("Title", "Duration", "Total Views", "Total Likes","Total Comments","YTExplorers Rank"))
+  filtered_video_details <- select(filtered_video_details, videotitle, points)
+  top_videos <-setNames(filtered_video_details, c("Title","YTExplorer Rank"))
   if(reverse){
     top_videos<-top_videos[nrow(top_videos):1, ]
   }
@@ -122,11 +139,11 @@ calculate_proportion<-function(filtered_video_details, full_video_detail)
 #' visualize_proportion(dummy_data)
 visualize_proportion<-function(proportion_data)
 {
-  print(proportion_data)
-     ggplot(proportion_data, aes(x = Category, y = Proportion)) +
-     geom_bar(stat = 'identity', fill = "steelblue", width = 0.5) +
-     labs(x = "Categories", y = "Proportion (%)", title = "Proportions of Views, Likes, Comments, and Duration of Top 10 Videos") +
-     theme_minimal()
+  ggplot(proportion_data, aes(x = Category, y = Proportion,fill = Category)) +
+    geom_bar(stat = 'identity',  width = 0.5) +
+    labs(x = "", y = "Proportion (%)", title = "Proportions of Top 10 Videos") +
+    theme_minimal()
+
 }
 
 #' Helps to co-ordinate all the function
@@ -138,14 +155,22 @@ visualize_proportion<-function(proportion_data)
 #'
 #' @export
 #'
-#' @examples get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw")
-get_top10_videos<-function(channelId)
-{
-  videos <- get_video_and_rank(channelId)
-  filtered_videos <- top_videos<- tail(videos,10)
-  proportion_data<-calculate_proportion(filtered_videos, videos)
-  print_videos(filtered_videos)
-  visualize_proportion(proportion_data)
+#' @examples get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw",2023)
+get_top10_videos<-function(channelId,year){
+  tryCatch({
+    if(missing(channelId) | missing(year)){
+      stop("channelId and year parameters are required but its missing")
+    }
+    videos <- get_video_and_rank(channelId,year)
+    filtered_videos <- top_videos<- tail(videos,10)
+    proportion_data<-calculate_proportion(filtered_videos, videos)
+    print_videos(filtered_videos)
+    visualize_proportion(proportion_data)
+  },error =function(e){
+    message("An error occurred: ", e$message)
+    return(NULL)
+  }
+  )
 }
 
 

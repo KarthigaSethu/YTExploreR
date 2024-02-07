@@ -6,6 +6,7 @@
 #' @param channel_ids A character vector of channel identifiers used for retrieve statistics.
 #'
 #' @return A data frame with the statistics, including:
+#' - channelID: Unique identifier from the channel.
 #' - channelName: The channel's title.
 #' - numberSubscribers: The number of subscribers that the channel has.
 #' - numberViews: The number of times the channel has been viewed.
@@ -20,7 +21,7 @@
 #'
 #' @examples
 #' # Set your API key
-#' api_key <- "REPLACE_WITH_A_VALID_KEY"
+#' api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
 #' # Define channel IDs
 #' channel_ids <- c("UCtYLUTtgS3k1Fg4y5tAhLbw",  # Statquest
 #'                 "UCLLw7jmFsvfIVaUFsLs8mlQ")  # Luke Barousse
@@ -33,6 +34,11 @@ get_channel_stats <- function(api_key, channel_ids) {
   library(httr)
   library(jsonlite)
   library(anytime)
+
+  # Check if channel_ids is a vector of strings
+  if (!is.character(channel_ids) || length(channel_ids) == 0 || any(!nzchar(channel_ids))) {
+    stop("Error: The channel ids must be a non-empty vector of strings")
+  }
 
   all_data <- data.frame()
 
@@ -49,6 +55,7 @@ get_channel_stats <- function(api_key, channel_ids) {
     channelStartDate <- channel_stats$items$snippet$publishedAt
 
     data <- data.frame(
+      channelID = channel_stats$items$id,
       channelName = channel_stats$items$snippet$title,
       channelStartDate = channel_stats$items$snippet$publishedAt,
       numberSubscribers = as.integer(channel_stats$items$statistics$subscriberCount),
@@ -57,6 +64,13 @@ get_channel_stats <- function(api_key, channel_ids) {
       playlistId = channel_stats$items$contentDetails$relatedPlaylists$uploads,
       country = channel_stats$items$snippet$country
     )
+
+    # Use tryCatch to handle errors during date parsing
+    tryCatch({
+      data$channelStartDate <- anytime::anytime(channelStartDate)
+    }, error = function(e) {
+      stop("Error: Unable to parse channel start date.")
+    })
 
     # Use anytime package to parse dates in various formats
     data$channelStartDate <- anytime::anytime(channelStartDate)
