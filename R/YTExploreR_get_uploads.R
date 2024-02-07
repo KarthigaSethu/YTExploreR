@@ -30,7 +30,7 @@ format_date <- function(month, year) {
 #' @import jsonlite
 #' @import dplyr
 #' @import tidyr
-#'
+#' @export
 
 get_monthly_uploads <- function(chan_id, year) {
 
