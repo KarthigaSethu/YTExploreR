@@ -7,6 +7,7 @@
 #'
 #' @return Two formatted strings, one month apart:
 #'        Suitable to be plugged into the YouTube Activities API publishedBefore and publishedAfter parameters
+#' @export
 #'
 
 format_date <- function(month, year) {
@@ -96,8 +97,8 @@ get_monthly_uploads <- function(chan_id, year) {
 #'
 #' @import ggplot2
 #' @import dplyr
+#' @export
 #'
-
 
 visualize_monthly_uploads <- function(uploads_df) {
 
