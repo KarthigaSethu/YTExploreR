@@ -11,7 +11,7 @@
 #' @import gridExtra
 #' @import viridis
 #' @import lubridate
-#'
+#' @export
 
 visualize_hourly_patterns <- function(uploads_df) {
   if (length(uploads_df) == 1) {
