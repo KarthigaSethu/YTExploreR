@@ -37,3 +37,19 @@ https://www.loom.com/share/7de14035e61d4f08aafb44057669cafb?sid=b62bbcdf-7036-4c
 3. I modify the documentation for every function to provide all the information requiered to run the examples within each one as this was generating errors in the checking process.
 4. I modify the Documentation file to add the libraries and dependencies from my wrapping functions and functionalities. 
 5. Modify the code fro the display_individual_channel_stats.R to encapsule it in a function.
+
+**Date: February 4th, 2024**
+
+- I work on the tests for my wrapping function and functionalities.
+
+**Date: February 5th, 2024**
+
+- I meet with my team in the commons to work on documentation: README, vignette, contributions.
+
+**Date: February 6th, 2024**
+
+- We test loading the package and run the functionalities, both Karthiga's and mine works well but Andrew's funtionalities were missing.
+- I added the figures for my plots and link with the README file.
+- I added an overview in the contributions file.
+
+
