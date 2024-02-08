@@ -46,6 +46,7 @@ channel_stats <- get_channel_stats(api_key, channel_ids)
 # Print the resulting data frame
 print(channel_stats)
 ```
+
 ```{r DisplayChannelExample}
 channel <- get_channel_stats(api_key, 'UCtYLUTtgS3k1Fg4y5tAhLbw')
 display_channel_info(channel)
@@ -69,3 +70,26 @@ proportion_plot
 growth_plot <- create_growth_plot(channel_stats)
 growth_plot
 ```
+
+```{r get_monthly_uploadsExample}
+
+# Pass in a valid YouTube Channel ID, to get channel activity data
+get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
+
+```
+
+```{r visualize_monthly_uploads}
+
+# Pass in the result from get_monthly_uploads 
+monthly_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
+visualize_monthly_uploads(monthly_uploads) 
+```
+
+```{r visualize_hourly_patterns}
+
+# Pass in the result from get_monthly_uploads
+monthly_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2020)
+visualize_hourly_patterns(monthly_uploads)
+
+```
+
