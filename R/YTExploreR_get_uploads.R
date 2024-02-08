@@ -122,8 +122,9 @@ visualize_monthly_uploads <- function(uploads_df) {
 
 
   monthly_line <- ggplot(monthly_summary, aes(x = month, y = upload_count, group = year)) +
-    geom_line(linetype = "solid", linewidth = 1.5, color="blue") +
-    geom_point(size=2, color="black") +
+    geom_line(linetype = "solid", linewidth = 0.75, color="darkblue") +
+    geom_area(fill='darkblue', alpha=0.3) +
+    geom_point(size=1.5, color="black") +
     labs(title = paste("Monthly Upload Activity for", unique(uploads_df$channelTitle), "in", unique(uploads_df$year)),
          x = "",
          y = "Channel Upload Activity") +
