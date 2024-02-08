@@ -172,7 +172,3 @@ get_top10_videos<-function(channelId,year){
   }
   )
 }
-
-
-
-

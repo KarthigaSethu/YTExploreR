@@ -99,7 +99,7 @@ calculate_and_display_summary<-function(merged_info)
   print(" ",quote=FALSE)
   print("OVERALL CATEGORY: ")
   print(setNames(merged_info[, c("categoryTitle", "count", "duration_sum", "percentage_duration")],
-                               c("Category", "Count", "Duration in mins", "Percecntage")))
+                 c("Category", "Count", "Duration in mins", "Percecntage")))
 }
 
 #' Helps to display category in pi chart
