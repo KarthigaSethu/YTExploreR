@@ -1,3 +1,7 @@
+![Main badge](https://github.com/KarthigaSethu/YTExploreR/actions/workflows/YTExploreR.yml/badge.svg)
+
+
+
 # R PACKAGE: YTExploreR
 
 ### Description:
