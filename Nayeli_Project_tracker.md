@@ -15,45 +15,53 @@ We meet at the library and work 2 hours refining the proposal and discussing use
 
 - Our partner Karthiga explained us how to create a project in RStudio and tied it with Git and GitHub.
 - We discuss about the wrapping functions and split the work evenly.
-- I created my firts wrapping function call "get_channel_stats" to retrieve information about the channel based on a list of channel ids.
+- I created my firts wrapping function call "get_channel_stats" to retrieve information about the channel.
 
 **Date: January 30th, 2024**
 
 I created the following R files: 
 
   1. display_individual_channel_stats.R: Functionality to display a table with the statistics for one channel.
-  2. channel_comparator_plots.R: Auxiliary piece of code that contains the function to create the plots for comparing 2 or   more channels.
+  2. channel_comparator_plots.R: Auxiliary piece of code that contains the function to create the plots for comparing 2 or more channels (4 bar plots and 1 bubble plot).
   3. channel_comparator_summarizer.R: Functionality that calls get_channel_stats and channel_comparator_plots and display   the plots for comparing 2 or more channels.
-  4. get_video_ids: Auxiliar wrapping function to get the video identifiers from the YouTube API. This auxiliar function will facilitate getting the information from the YouTube API for the analysis. For example,  the user must know the channel_id and provide it as a parameter in the get_channel_stats wrapping function, then a data frame will be displayed with the channel statistics including the playlist_id, this id can be used as a parameter in the auxiliar function get_video_ids which retrieves all the video id's from a channel. Finally, the user just have to chose a video id to get the video category and video details information.
 
-  5. Finally, I record a video to explain how to call the wrapping/auxiliary functions within a R file to display the functionalities (a summary table and plots for the comparison of channels).
+Finally, I record a video to explain how to call the wrapping/auxiliary functions within a R file to display the functionalities (a summary table and plots for the comparison of channels).
 
 https://www.loom.com/share/7de14035e61d4f08aafb44057669cafb?sid=b62bbcdf-7036-4c36-9e65-7bb7395edc7f
 
 **Date: February 1st, 2024**
 
-1. I did run the check process from Build -> Check in RStudio.
+1. I run the check process from Build -> Check in RStudio.
 2. Troubleshooting with my team members in the class hour.
-3. I modify the documentation for every function to provide all the information requiered to run the examples within each one as this was generating errors in the checking process.
-4. I modify the Documentation file to add the libraries and dependencies from my wrapping functions and functionalities. 
-5. Modify the code fro the display_individual_channel_stats.R to encapsule it in a function.
+3. I modify the Roxygen documentation for every function to provide all the information requiered for running the examples within each one, as this was generating errors in the checking process.
+4. I modified the Documentation file to add the libraries and dependencies from my wrapping functions and functionalities. 
+5. I modified the code from the display_individual_channel_stats.R to encapsule it in a function.
 
 **Date: February 4th, 2024**
 
-- I work on the tests for my wrapping function and functionalities.
+- I work on the tests for my wrapping function and functionalities (12 tests overall).
 
 **Date: February 5th, 2024**
 
-- I meet with my team in the commons to work on documentation: README, vignette, contributions.
+- I meet with my team in the commons to work in the documentation: README, vignette, contributions.
 
 **Date: February 6th, 2024**
 
-- We test loading the package and run the functionalities, both Karthiga's and mine works well but Andrew's funtionalities were missing.
+- We test loading the package and running the functionalities, both Karthiga's and mine works well but Andrew's funtionalities were missing.
 - I added the figures for my plots and link with the README file.
 - I added an overview in the contributions file.
 
 **Date: February 7th, 2024**
 
-- We meet in the classroom, discuss the slides structure and pick the plots and information we cant to present.
+- We meet in the classroom, we discuss the slides structure and pick the plots and information for the presentation.
 - I created the slides on Canva for the presentation.
+- I prepare my pich for presentation.
+
+**Date: February 8th, 2024**
+
+- We present our project, even though some technical issues and that I forgot most of my pitch, I think we overcome the problems.
+- I add the .yml file on GitHub actions for Continuous Integration and Deployment (CI/CD), after some failed attemps it works fine!
+- I add the passing badge for CI/CD on the README file.
+
+Thank you for reading the journal!
   
