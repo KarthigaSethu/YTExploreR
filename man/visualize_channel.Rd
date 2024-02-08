@@ -18,5 +18,5 @@ merged_data <- data.frame(categoryid = c("22", "27"),
       count = c(1, 19),
       duration_sum = c(21.05, 399.95),
       percentage_duration = c(5, 95))
-visualize(merged_data)
+visualize_channel(merged_data)
 }
