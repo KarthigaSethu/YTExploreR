@@ -32,6 +32,9 @@ format_date <- function(month, year) {
 #' @import dplyr
 #' @import tidyr
 #' @export
+#'
+#' @example get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
+#'
 
 get_monthly_uploads <- function(chan_id, year) {
 
