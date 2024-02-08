@@ -1,11 +1,12 @@
-name: R CI/CD
+name: R Package CI
+
 on:
   push:
-  branches:
-    - main
-pull_request:
-  branches:
-    - main
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
@@ -21,5 +22,5 @@ jobs:
       - name: Install dependencies
         uses: r-lib/actions/setup-r-dependencies@v2
 
-      - name: Run Tests
+      - name: Run tests
         run: Rscript -e 'devtools::test()'
