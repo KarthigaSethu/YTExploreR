@@ -1,5 +1,5 @@
 library(ggplot2)
-
+library(kableExtra)
 
 #' @param channelId
 #'
@@ -27,6 +27,7 @@ get_video_ids <-function(channelId,year)
 #' @param channelID
 #' @param year
 #'
+#' @import kableExtra
 #' @return videos a dataframe
 #' @export
 #'
@@ -60,6 +61,7 @@ get_video_and_rank<-function(channelID, year)
 #' @param reverse
 #'
 #' @export
+#' @import kableExtra
 #'
 #' @examples
 #' dummy_data <- data.frame(
@@ -78,7 +80,9 @@ print_videos<-function(filtered_video_details, reverse = TRUE)
   if(reverse){
     top_videos<-top_videos[nrow(top_videos):1, ]
   }
-  print(top_videos)
+  top_10_videos <-  kbl(top_videos, caption = "TOP 10 Videos") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+  print(top_10_videos)
 }
 
 #' Helps to calculate proportion of views, count,comments, duration
@@ -141,7 +145,7 @@ visualize_proportion<-function(proportion_data)
 {
   ggplot(proportion_data, aes(x = Category, y = Proportion,fill = Category)) +
     geom_bar(stat = 'identity',  width = 0.5) +
-    labs(x = "", y = "Proportion (%)", title = "Proportions of Top 10 Videos") +
+    labs(x = "", y = "Proportion (%)", title = "Proportions of Top 10 Videos",fill="Metrics") +
     theme_minimal()
 
 }

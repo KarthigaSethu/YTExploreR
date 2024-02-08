@@ -1,5 +1,6 @@
 library(dplyr)
 library(ggplot2)
+library(kableExtra)
 
 #' Helps to prepare data for preference breakdown
 #'
@@ -102,6 +103,76 @@ calculate_and_display_summary<-function(merged_info)
                  c("Category", "Count", "Duration in mins", "Percecntage")))
 }
 
+#' Tabulates summary on least and most favorite category
+#'
+#' @param merged_info
+#'
+#' @return: gives table
+#'
+#' @import kableExtra
+#' @export
+#'
+#' @example
+#' merged_data <- data.frame(categoryid = c("22", "27"),
+#'       channelId = c("UCAuUUnT6oDeKwE6v1NGQxug", "UCtYLUTtgS3k1Fg4y5tAhLbw"),
+#'       categoryTitle = c("Entertainment","Education"),
+#'       count = c(1, 19),
+#'       duration_sum = c(21.05, 399.95),
+#'       percentage_duration = c(5, 95))
+#' visualize(merged_data)
+#' tabulate_summary(merged_data)
+tabulate_summary<-function(merged_info)
+{
+  min_category <- min(merged_info$count)
+  max_category <- max(merged_info$count)
+  min_categorylist <- merged_info$categoryTitle[merged_info$count == min_category]
+  max_categorylist <- merged_info$categoryTitle[merged_info$count == max_category]
+  min_category_duration <- sum(merged_info$duration_sum[merged_info$count == min_category])
+  max_category_duration <- sum(merged_info$duration_sum[merged_info$count == max_category])
+  min_category_percentage <- sum(merged_info$percentage_duration[merged_info$count == min_category])
+  max_category_percentage <- sum(merged_info$percentage_duration[merged_info$count == max_category])
+
+
+  summary_data <- data.frame(
+    Likeness = c("Least Favorite", "Most Favorite"),
+    categories = c(paste(paste(min_categorylist, collapse = ", ")), paste(paste(max_categorylist, collapse = ", "))),
+    Time_Spend_Minutes = c(paste(round(min_category_duration), "min"),paste(round(max_category_duration), "min")),
+    Percentage_Time_Spent = c(paste(round(min_category_percentage), "%"), paste(round(max_category_percentage), "%"))
+  )
+
+  top_10_videos_print <-  kbl(summary_data, caption = "Summary on Least and Most favourite category") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+
+  print(top_10_videos_print)
+}
+
+#' Tabulates the overall summary on category
+#'
+#' @param merged_info
+#'
+#' @return
+#' @import kableExtra
+#'
+#' @export
+#' @example
+#' merged_data <- data.frame(categoryid = c("22", "27"),
+#'       channelId = c("UCAuUUnT6oDeKwE6v1NGQxug", "UCtYLUTtgS3k1Fg4y5tAhLbw"),
+#'       categoryTitle = c("Entertainment","Education"),
+#'       count = c(1, 19),
+#'       duration_sum = c(21.05, 399.95),
+#'       percentage_duration = c(5, 95))
+#'
+#' tabulate_overallsummary(merged_data)
+tabulate_overallsummary<-function(merged_info)
+{
+  splitted_data <- merged_info[, c("categoryTitle", "count", "duration_sum", "percentage_duration")]
+  colnames(splitted_data) <- c("Category", "Count", "Duration in mins", "Percecntage of watch time")
+  table_channel_stats <-  kbl(splitted_data, caption = "Overall Summary on breakdown") %>%
+    kable_classic(full_width = F, html_font = "Cambria")
+
+  print(table_channel_stats)
+}
+
 #' Helps to display category in pi chart
 #'@description
 #'This method helps to create pi chart
@@ -123,9 +194,9 @@ visualize<-function(merged_info)
   category_plot <- ggplot(merged_info, aes(x = " ", y = count, fill = categoryTitle)) +
     geom_bar(stat = "identity") +
     coord_polar("y", start = 0) +
-    labs(title = "Breakdown on your watch category", fill = "categoryTitle") +
+    labs(title = "Categorical breakdown in your watch history", fill = "categoryTitle") +
     theme_minimal()+
-    labs(x="")
+    labs(x="",  fill = "Categories")
   print(category_plot)
 }
 
@@ -146,15 +217,17 @@ visualize<-function(merged_info)
 #'       duration_sum = c(21.05, 399.95),
 #'       percentage_duration = c(5, 95))
 #' visualize_channel(merged_data)
-visualize_channel<-function(merged_info)
+visualize_channel <- function(merged_info)
 {
   ggplot(merged_info, aes(x = channelName, y = 1, size = count, color = channelName)) +
-    geom_point(alpha = 0.7,show.legend = FALSE) +
-    geom_text(aes(label = round(duration_sum)), vjust = -0.5, size=5, color= 'white')+
+    geom_point(alpha = 0.7, show.legend = FALSE) +
+    geom_text(aes(label = channelName), vjust = -8, size = 5, color = 'black') +  # corrected
+    geom_text(aes(label = paste("count: ", round(count))), vjust = 8, size = 5, color = 'black') +  # corrected
+    geom_text(aes(label = paste(round(duration_sum), " min")), vjust = 10, size = 5, color = 'black') +  # corrected
     scale_size_continuous(range = c(20, 70)) +
-    labs(x = "Channel Name", y = NULL, size = "Duration", title=" Watch time (in minutes) per channel")+
-    theme(axis.text.y=element_blank())+
-    labs(y="")
+    labs(x = "Channel Name", y = NULL, size = "Duration", title = "Channel View Summary: Watch Time and Video Duration") +
+    theme(axis.text.y = element_blank(), axis.text.x = element_blank()) +
+    labs(y = "", x = "")  # corrected
 }
 
 #' Main function that helps to co-ordinate all the functions
@@ -181,6 +254,8 @@ get_Preference_Breakdown<-function(video_ids)
     }
     video_ids <- gsub(" ", "", video_ids)
     merged_info <- preprare_data(video_ids)
+    tabulate_summary(merged_info)
+    tabulate_overallsummary(merged_info)
     calculate_and_display_summary(merged_info)
     visualize(merged_info)
     visualize_channel(merged_info)
