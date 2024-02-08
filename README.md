@@ -114,7 +114,7 @@ display_channel_info(channel)
  - **get_video_and_rank:**  Ranking videos base on a weighted cumulative metric 0.3(views)+0.2(comments)+0.2(likes)
  - **calculate_proportion:** Calculates proportion of views, likes, duration, comments 
  - **visualize_proportion*:*  Visualizes the proportional of views, likes, duration, comments in bar chart
- - **print_videos:** Helps to print top 10 videos
+ - **print_videos:** Helps to print top 10 videos as a table
  - **get_top10_videos:** Co-ordinates all the function above and give a summary of top 10 videos and bar chart on proportions
 
 ###### Sample outputs:
@@ -127,6 +127,8 @@ get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
 #### Preference Analysis:
 - **preprare_data:** Gets video details, groups it by channelID and Category ID and gets the count and number of videos per category. Then Merges it with Category API detail to get category title. Then merges this data with channel API data to get title of the channel.
 - **calculate_and_display_summary:** Calculates Least and most favourite Category or categories. Gives summary on all the categories. 
+- **tabulate_summary:** This helps to get the summary on the least and most favourite category as a table.
+- **tabulate_overallsummary:** This helps to get the summary on all categories as a table. 
 - **visualize_channel and visualize:** It visualizes the channel in bubble plot where size of the bubble is proportional to time they spent on the channel.
 
 ###### Sample outputs:
@@ -134,12 +136,10 @@ get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
 get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
 ```
 ![Summary](Image_sources/PreferenceBreakdown3.png)
+![Summary](Image_sources/PreferenceBreakdown4.png)
 ![Plot on category](Image_sources/PreferenceBreakdown.png)
 ![Plot on channel](Image_sources/PreferenceBreakdown2.png)
 
-- Bottom ten videos of a channel 
-  - Ranking videos base on a weigthed cumulative metric: 0.4(shares)+0.3(views)+0.2(comments)+0.2(likes)
-  - Visualize using a bar chart setting the y-axis with the proprtion (range from 0 to 1.) 
 - Monthly performance: 
   - Analizing the uploads per month and related views.
   - Visualize using a line chart.
