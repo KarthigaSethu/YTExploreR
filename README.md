@@ -68,9 +68,9 @@ Get_Video_Category("22,20", {Your API Key})
 
 #### Channel Comparator: This functions help the user to compare 2 or more channel id's base on number of likes, suscribers and total videos. All receive a data frame generated with the get_channel_stats() function in the previous section.
 
-  - **create_bar_subscribers_plot:** Function to create a bar plot to visualize the number of subscribers for 2 or more channel IDs.
-  - **create_bar_views_plot:** Function to create a bar plot to visualize the number of views for 2 or more channel IDs.
-  - **create_bar_videos_plot:** Function to create a bar plot for the number of videos of 2 or more channel IDs.
+  - **create_bar_subscribers_plot():** Function to create a bar plot to visualize the number of subscribers for 2 or more channel IDs.
+  - **create_bar_views_plot():** Function to create a bar plot to visualize the number of views for 2 or more channel IDs.
+  - **create_bar_videos_plot()t:** Function to create a bar plot for the number of videos of 2 or more channel IDs.
  
 ```
 
