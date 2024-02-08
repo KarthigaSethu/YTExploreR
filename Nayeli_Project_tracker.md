@@ -52,4 +52,8 @@ https://www.loom.com/share/7de14035e61d4f08aafb44057669cafb?sid=b62bbcdf-7036-4c
 - I added the figures for my plots and link with the README file.
 - I added an overview in the contributions file.
 
+**Date: February 7th, 2024**
 
+- We meet in the classroom, discuss the slides structure and pick the plots and information we cant to present.
+- I created the slides on Canva for the presentation.
+  
