@@ -16,7 +16,7 @@
 
 #### Jan-21-2024, Jan-22-2024, Jan-23-2024  : 
 
-- Trying to resolve package installation issue. Tried different suggestions from google and nothing worked.
+- Trying to resolve package installation issue. Tried different suggestions from Google and nothing worked.
 
 #### Jan-25th-2024
 - I created a repository , initial package template and my own repo branch
@@ -56,7 +56,7 @@ Check failed so fixed all the code to pass the check
 - Helping team mates to resolve conflicts
 - Discussion on package and CI/CD
 - Added and Uploaded tests
-- Updated charts adter feedback
+- Updated charts after feedback
 
 #### Feb-4-2024:
 - Added few more test to increase code coverage
@@ -67,6 +67,16 @@ Check failed so fixed all the code to pass the check
 - Integrated Activity API to my feature
 - Checked all the features code coverage and test together 
 
-#### Feb-6-2024"
+#### Feb-6-2024:
 - Added contribution.md
 - Added personal project tracker
+
+#### Feb-7-2024:
+- Converted print summary into table summary for clean and better visibility
+- Added 3 text layers in bubble chart 
+- Changed categories legend title and overall enhanced 3 charts
+- made minor correction in presentation 
+
+#### Feb-8-2024:
+- Updated Vignette to include my feature
+- Updated readme file
