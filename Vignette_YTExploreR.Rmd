@@ -56,8 +56,9 @@ bar_subscribers <- create_bar_subscribers_plot(channel_stats)
 bar_views <- create_bar_views_plot(channel_stats)
 bar_videos <- create_bar_videos_plot(channel_stats)
 
-# Arrange the plots side by side
-grid.arrange(bar_videos, bar_subscribers, bar_views, ncol = 3)
+bar_videos
+bar_subscribers
+bar_views
 ```
 
 ```{r ChannelComparatorExamples2}
@@ -69,3 +70,12 @@ proportion_plot
 growth_plot <- create_growth_plot(channel_stats)
 growth_plot
 ```
+```{r Top 10 Videos}
+get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw",2023)
+```
+```{r}
+videos<-"Ks-_Mh1QhMc,ZTt9gsGcdDo,Qf06XDYXCXI,Qf06XDYXCXI,rC9vw2dSpQo,rC9vw2dSpQo,Ka04Dj7DxGk,bQ5BoolX9Ag,bQ5BoolX9Ag,L8HKweZIOmg,PSs6nxngL6k,zxQyTK8quyY,zxQyTK8quyY,8ZcccMzTz7Y,8ZcccMzTz7Y,YaQEUgIr4Mk,YaQEUgIr4Mk,PSs6nxngL6k,PSs6nxngL6k,02zO75hHpZQ,kDitis0QB9Y,YLADB0ZCWaE,R1dD6khKJh4"
+
+get_Preference_Breakdown(videos)	
+```
+
