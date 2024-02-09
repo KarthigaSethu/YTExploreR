@@ -1,10 +1,11 @@
 Package: YTExploreR
 Title: What the Package Does (One Line, Title Case)
 Version: 0.0.0.9000
-Authors@R: 
-    person("Karthiga Sethu", "Sethuramalingam", , "karthigaksk@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Authors@R: c(
+          person("Karthiga Sethu", "Sethuramalingam", , "karthigaksk@gmail.com", role = c("aut", "cre")),
+          person("Nayeli", "Montiel", , "naye.montiel.1806@gmail.com", role = c("aut")),
+          person("Andrew", "Sarracini", , "andrewsarracini1@gmail.com", role = c("aut")))
+Description: Helps youtube watchers and content creator to get more insights on youtube videos, channel
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

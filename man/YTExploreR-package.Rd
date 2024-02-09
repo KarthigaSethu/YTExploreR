@@ -6,10 +6,16 @@
 \alias{YTExploreR-package}
 \title{YTExploreR: What the Package Does (One Line, Title Case)}
 \description{
-What the package does (one paragraph).
+Helps youtube watchers and content creator to get more insights on youtube videos, channel
 }
 \author{
-\strong{Maintainer}: Karthiga Sethu Sethuramalingam \email{karthigaksk@gmail.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Karthiga Sethu Sethuramalingam \email{karthigaksk@gmail.com}
+
+Authors:
+\itemize{
+  \item Nayeli Montiel \email{naye.montiel.1806@gmail.com}
+  \item Andrew Sarracini \email{andrewsarracini1@gmail.com}
+}
 
 }
 \keyword{internal}

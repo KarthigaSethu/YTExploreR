@@ -1,6 +1,6 @@
 ---
 title: "Vignette_YTExploreR"
-author: "Andrew Sarraci, Karthiga Setu, and Nayeli Montiel"
+author: "Andrew Sarracini, Karthiga Sethu Sethuramalingam, and Nayeli Montiel"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
@@ -17,14 +17,14 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(YTExploreR)
+library(YTExploreR,lib.loc = 'C:/Users/karth/OneDrive/Desktop')
 library(ggrepel)
 ```
 
 # Examples:  
 
 # Get channel statistics
-```{r ChannelExamples}
+```{r ChannelExamples,fig.width=6, fig.height=4}
 # Set your API key
 api_key <- "AIzaSyB6df_K1PJy64w5VLZGYWyXSPYJ-TOoXVw"
 
@@ -47,12 +47,12 @@ channel_stats <- get_channel_stats(api_key, channel_ids)
 print(channel_stats)
 ```
 
-```{r DisplayChannelExample}
+```{r DisplayChannelExample,fig.width=6, fig.height=4}
 channel <- get_channel_stats(api_key, 'UCtYLUTtgS3k1Fg4y5tAhLbw')
 display_channel_info(channel)
 ```
 
-```{r ChannelComparatorExamples}
+```{r ChannelComparatorExamples ,fig.width=6, fig.height=4}
 bar_subscribers <- create_bar_subscribers_plot(channel_stats)
 bar_views <- create_bar_views_plot(channel_stats)
 bar_videos <- create_bar_videos_plot(channel_stats)
@@ -62,42 +62,42 @@ bar_subscribers
 bar_views
 ```
 
-```{r ChannelComparatorExamples2}
+```{r ChannelComparatorExamples2,fig.width=6, fig.height=4}
 proportion_plot <- create_engagement_plot(channel_stats)
 proportion_plot
 ```
 
-```{r ChannelComparatorExamples3}
+```{r ChannelComparatorExamples3,fig.width=12, fig.height=6}
 growth_plot <- create_growth_plot(channel_stats)
 growth_plot
 ```
 
-```{r Top 10 Videos}
+```{r Top 10 Videos,fig.width=6, fig.height=4}
 get_top10_videos("UCtYLUTtgS3k1Fg4y5tAhLbw",2023)
 
 ```
 
-```{r Preference breakdowm}
+```{r Preference breakdowm,fig.width=6, fig.height=4}
 videos<-"Ks-_Mh1QhMc,ZTt9gsGcdDo,Qf06XDYXCXI,Qf06XDYXCXI,rC9vw2dSpQo,rC9vw2dSpQo,Ka04Dj7DxGk,bQ5BoolX9Ag,bQ5BoolX9Ag,L8HKweZIOmg,PSs6nxngL6k,zxQyTK8quyY,zxQyTK8quyY,8ZcccMzTz7Y,8ZcccMzTz7Y,YaQEUgIr4Mk,YaQEUgIr4Mk,PSs6nxngL6k,PSs6nxngL6k,02zO75hHpZQ,kDitis0QB9Y,YLADB0ZCWaE,R1dD6khKJh4"
 get_Preference_Breakdown(videos)	
 
 ```
 
-```{r get_monthly_uploadsExample}
+```{r get_monthly_uploadsExample,fig.width=6, fig.height=4}
 
 # Pass in a valid YouTube Channel ID, to get channel activity data
 get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
 
 ```
 
-```{r visualize_monthly_uploads}
+```{r visualize_monthly_uploads,fig.width=6, fig.height=4}
 
 # Pass in the result from get_monthly_uploads 
 monthly_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
 visualize_monthly_uploads(monthly_uploads) 
 ```
 
-```{r visualize_hourly_patterns}
+```{r visualize_hourly_patterns,fig.width=6, fig.height=4}
 
 # Pass in the result from get_monthly_uploads
 monthly_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2020)
