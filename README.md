@@ -160,7 +160,7 @@ channel_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
 visualize_monthly_uploads(channel_uploads)
 ```
 
-![Plot](Image_sources/RankandAnalysis.png)
+![Plot](Image_sources/monthly_nhl_2019_480.png)
 
 #### Hourly Upload Analysis Partitioned by Season
 - Tracks and visualizes the hour in which a channel publishes their uploads
@@ -173,7 +173,7 @@ visualize_monthly_uploads(channel_uploads)
 channel_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
 visualize_hourly_patterns(channel_uploads)
 ```
-![Plot](Image_sources/RankandAnalysis.png)
+![Plot](Image_sources/hourly_digitalperspectives_2020_480.png)
   
 
 
