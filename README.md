@@ -64,9 +64,13 @@ channel_stats <- get_channel_stats(api_key, channel_ids)
 ```
 Get_Video_Detail("Ks-_Mh1QhMc,Ks-_Mh1QhMc", {your API Key})
 ```
-- **Get_Video_Category():** This method uses video categories API, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.- **Get_monthly_uploads():**  This method uses activities API. It receives a YouTube channel id as input and retrieves activities that are carried out by that channel. This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more.
+- **Get_Video_Category():** This method uses video categories API, which accepts single or multiple category ids,to get all the category details. It retrieves a data frame with details about the video.
 ```
 Get_Video_Category("22,20", {Your API Key})
+```
+- **get_monthly_uploads():** This method uses the YouTube Activities API. It takes a valid YouTube channel ID and a calendar year as input, and retrieves activities that are carried out by that channel. This includes: uploading videos, creating playlists (of pre-existing videos), likes activity, social activity and more. In order to overcome a 50 row-per call limitation on this API, this function makes 12 API calls every time the function is run. This allows for aggregation of up to 50 videos per month (in the given input year provided by the user).
+```
+get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
 ```
 ### Functionalities
 
@@ -117,7 +121,7 @@ display_channel_info(channel)
 #### Rank and Analyse videos in a channel:
  - **get_video_and_rank:**  Ranking videos base on a weighted cumulative metric 0.3(views)+0.2(comments)+0.2(likes)
  - **calculate_proportion:** Calculates proportion of views, likes, duration, comments 
- - **visualize_proportion*:*  Visualizes the proportional of views, likes, duration, comments in bar chart
+ - **visualize_proportion**:  Visualizes the proportional of views, likes, duration, comments in bar chart
  - **print_videos:** Helps to print top 10 videos as a table
  - **get_top10_videos:** Co-ordinates all the function above and give a summary of top 10 videos and bar chart on proportions
 
@@ -144,6 +148,35 @@ get_Preference_Breakdown("Ks-_Mh1QhMc,Qf06XDYXCXI")
 ![Plot on category](Image_sources/PreferenceBreakdown.png)
 ![Plot on channel](Image_sources/PreferenceBreakdown2.png)
 
-- Monthly performance: 
-  - Analizing the uploads per month and related views.
-  - Visualize using a line chart.
+#### Monthly Upload Analysis and Performance: 
+- Serves as a tool for creators to track their monthly progress against their previous monthly upload activity 
+- Identifies channel performance and whether or not their upload frequency is at a suitable rate for maximum engagement and channel growth
+
+- **visualize_monthly_uploads**: takes in a dataframe from the main Activity API get function, `get_monthly_uploads()` and creates the monthly upload frequency plot
+  
+###### Sample outputs: 
+```
+channel_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
+visualize_monthly_uploads(channel_uploads)
+```
+
+![Plot](Image_sources/RankandAnalysis.png)
+
+#### Hourly Upload Analysis Partitioned by Season
+- Tracks and visualizes the hour in which a channel publishes their uploads
+- Data is separated out by the four seasons (Winter, Spring, Summer, Fall) to emphasize differences
+
+- **visualize_hourly_patterns**: takes in a dataframe from the main Activity API get function, `get_monthly_uploads()` and creates the hourly upload seasonal density plot
+
+###### Sample outputs: 
+```
+channel_uploads <- get_monthly_uploads("UCQKnyICqWksz8ygILHS01gQ", 2019)
+visualize_hourly_patterns(channel_uploads)
+```
+![Plot](Image_sources/RankandAnalysis.png)
+  
+
+
+
+
+
