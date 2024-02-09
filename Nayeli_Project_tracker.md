@@ -1,15 +1,14 @@
 **Date: January 16th, 2024**
 
-I shared some API websites with my classmates to pick one for our project.
-In the end we choose YouTube API.
+- Shared some API websites with my classmates to pick one for our project... In the end we choose YouTube API.
 
 **Date: January 19th, 2024**
 
-I worked on a template for the proposal aand share it with my classmates.
+- Worked on a template for the proposal aand share it with my classmates.
 
 **Date: January 20th, 2024**
 
-We meet at the library and work 2 hours refining the proposal and discussing useful functionalities for our project.
+- We meet at the library and work 2 hours refining the proposal and discussing useful functionalities for our project.
 
 **Date: January 25th, 2024**
 
@@ -19,31 +18,31 @@ We meet at the library and work 2 hours refining the proposal and discussing use
 
 **Date: January 30th, 2024**
 
-I created the following R files: 
+- I created the following R files: 
 
   1. display_individual_channel_stats.R: Functionality to display a table with the statistics for one channel.
   2. channel_comparator_plots.R: Auxiliary piece of code that contains the function to create the plots for comparing 2 or more channels (4 bar plots and 1 bubble plot).
   3. channel_comparator_summarizer.R: Functionality that calls get_channel_stats and channel_comparator_plots and display   the plots for comparing 2 or more channels.
 
-Finally, I record a video to explain how to call the wrapping/auxiliary functions within a R file to display the functionalities (a summary table and plots for the comparison of channels).
+- Recorded a video to explain how to call the wrapping/auxiliary functions within a R file to display the functionalities (a summary table and plots for the comparison of channels).
 
 https://www.loom.com/share/7de14035e61d4f08aafb44057669cafb?sid=b62bbcdf-7036-4c36-9e65-7bb7395edc7f
 
 **Date: February 1st, 2024**
 
-1. I run the check process from Build -> Check in RStudio.
-2. Troubleshooting with my team members in the class hour.
-3. I modify the Roxygen documentation for every function to provide all the information requiered for running the examples within each one, as this was generating errors in the checking process.
-4. I modified the Documentation file to add the libraries and dependencies from my wrapping functions and functionalities. 
-5. I modified the code from the display_individual_channel_stats.R to encapsule it in a function.
+- Running the check process from Build -> Check in RStudio.
+- Troubleshooting with my team members in the class hour.
+- Modifying the Roxygen documentation for every function to provide all the information requiered for running the examples within each one, as this was generating errors in the checking process.
+- Modifying the description file to add the libraries and dependencies from my wrapping functions and functionalities. 
+- Modifying the code from the display_individual_channel_stats.R to encapsule it in a function.
 
 **Date: February 4th, 2024**
 
-- I work on the tests for my wrapping function and functionalities (12 tests overall).
+- Work on the tests for my wrapping function and functionalities (12 tests overall).
 
 **Date: February 5th, 2024**
 
-- I meet with my team in the commons to work in the documentation: README, vignette, contributions.
+- Meeting with my team in the commons to work in the documentation: README, vignette, contributions.
 
 **Date: February 6th, 2024**
 
@@ -54,7 +53,7 @@ https://www.loom.com/share/7de14035e61d4f08aafb44057669cafb?sid=b62bbcdf-7036-4c
 **Date: February 7th, 2024**
 
 - We meet in the classroom, we discuss the slides structure and pick the plots and information for the presentation.
-- I created the slides on Canva for the presentation.
+- Creation of the slides on Canva for the presentation.
 - I prepare my pich for presentation.
 
 **Date: February 8th, 2024**
